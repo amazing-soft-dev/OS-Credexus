@@ -1,0 +1,74 @@
+name: Merge passing pull request
+
+# workflow_run workflows execute from the default branch, so this only takes
+# effect once it is on main. GH_TOKEN (not GITHUB_TOKEN) is used so that the
+# merge triggers downstream workflows.
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: merge-passing-pr
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      REPO: ${{ github.repository }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+      PULL_REQUESTS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
+    steps:
+      - name: Merge eligible pull requests
+        run: |
+          set -euo pipefail
+
+          for number in $(echo "$PULL_REQUESTS" | jq -r '.[].number'); do
+            pr=$(gh pr view "$number" --repo "$REPO" \
+              --json state,isDraft,isCrossRepository,headRefOid,headRefName,baseRefName)
+
+            state=$(jq -r .state <<<"$pr")
+            draft=$(jq -r .isDraft <<<"$pr")
+            fork=$(jq -r .isCrossRepository <<<"$pr")
+            head_sha=$(jq -r .headRefOid <<<"$pr")
+            head=$(jq -r .headRefName <<<"$pr")
+            base=$(jq -r .baseRefName <<<"$pr")
+
+            if [ "$state" != "OPEN" ] || [ "$draft" = "true" ] || [ "$fork" = "true" ]; then
+              echo "#$number: not open, draft, or from a fork; skipping."
+              continue
+            fi
+
+            if [ "$head_sha" != "$HEAD_SHA" ]; then
+              echo "#$number: head moved since CI ran; skipping."
+              continue
+            fi
+
+            case "$head" in
+              dependabot/*)
+                echo "#$number: Dependabot branch; merge by hand."
+                continue
+                ;;
+            esac
+
+            if [ "$base" = "dev" ] && [ "$head" != "dev" ] && [ "$head" != "main" ]; then
+              :
+            elif [ "$base" = "main" ] && [ "$head" = "dev" ]; then
+              :
+            else
+              echo "#$number: $head -> $base is not an automated lane; skipping."
+              continue
+            fi
+
+            echo "#$number: merging $head -> $base."
+            gh pr merge "$number" --repo "$REPO" --merge --match-head-commit "$HEAD_SHA"
+          done

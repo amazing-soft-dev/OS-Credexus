@@ -1,0 +1,127 @@
+name: Open pull request
+
+# Topic branch -> dev, and dev -> main. PRs are opened with GH_TOKEN (not
+# GITHUB_TOKEN) so that the CI run they trigger actually starts.
+on:
+  push:
+    branches:
+      - dev
+      - "feat/**"
+      - "fix/**"
+      - "docs/**"
+      - "ci/**"
+      - "build/**"
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: read
+
+concurrency:
+  group: open-pr-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      REPO: ${{ github.repository }}
+      BRANCH: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Open or update the pull request
+        run: |
+          set -euo pipefail
+
+          if [ "$BRANCH" = "dev" ]; then
+            BASE=main
+          else
+            BASE=dev
+          fi
+
+          if ! git rev-parse --verify --quiet "origin/$BASE" >/dev/null; then
+            echo "Base branch '$BASE' does not exist on origin; nothing to do."
+            exit 0
+          fi
+
+          ahead=$(git rev-list --count "origin/$BASE..origin/$BRANCH")
+          if [ "$ahead" -eq 0 ]; then
+            echo "$BRANCH has no commits ahead of $BASE; nothing to do."
+            exit 0
+          fi
+
+          number=$(gh pr list --repo "$REPO" --head "$BRANCH" --base "$BASE" \
+            --state open --json number --jq '.[0].number // empty')
+
+          if [ -z "$number" ]; then
+            title=$(git log -1 --format=%s "origin/$BRANCH")
+            if [ "$BRANCH" = "dev" ]; then
+              body=$'Release `dev` into `main`.\n\n<!-- closes:start -->\n<!-- closes:end -->'
+            else
+              body="Opened automatically from \`$BRANCH\`."
+              issue=$(echo "$BRANCH" | sed -nE 's#^[a-z]+/([0-9]+)-.*#\1#p')
+              if [ -n "$issue" ]; then
+                body+=$'\n\nRefs #'"$issue"
+              fi
+            fi
+            number=$(gh pr create --repo "$REPO" --base "$BASE" --head "$BRANCH" \
+              --title "$title" --body "$body" | grep -oE '[0-9]+$')
+            echo "Opened PR #$number ($BRANCH -> $BASE)."
+          else
+            echo "PR #$number already open ($BRANCH -> $BASE)."
+          fi
+
+          echo "PR_NUMBER=$number" >> "$GITHUB_ENV"
+
+      # GitHub only closes issues for PRs merged into the default branch, so
+      # the dev -> main PR carries the "Closes #N" lines.
+      - name: Refresh closing keywords on the dev -> main PR
+        if: github.ref_name == 'dev'
+        run: |
+          set -euo pipefail
+
+          if [ -z "${PR_NUMBER:-}" ]; then
+            exit 0
+          fi
+
+          range="origin/main..origin/dev"
+          {
+            git log "$range" --format=%B \
+              | grep -ioE '(close[sd]?|fix(es|ed)?|resolve[sd]?) #[0-9]+' \
+              | grep -oE '[0-9]+$' || true
+            git log "$range" --merges --format=%s \
+              | sed -nE 's@^Merge pull request #[0-9]+ from [^/ ]+/(feat|fix|docs|ci|build)/([0-9]+)-.*@\2@p'
+          } | sort -un > candidates.txt
+
+          : > closes.txt
+          while read -r n; do
+            [ -n "$n" ] || continue
+            if gh api "repos/$REPO/issues/$n" \
+                --jq 'select(.state == "open" and (has("pull_request") | not)) | .number' \
+                2>/dev/null | grep -q .; then
+              echo "Closes #$n" >> closes.txt
+            fi
+          done < candidates.txt
+
+          gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq .body > body.txt
+          python3 - <<'PY'
+          import pathlib
+
+          start, end = "<!-- closes:start -->", "<!-- closes:end -->"
+          body = pathlib.Path("body.txt").read_text()
+          closes = pathlib.Path("closes.txt").read_text().strip()
+          block = f"{start}\n{closes}\n{end}" if closes else f"{start}\n{end}"
+
+          i, j = body.find(start), body.find(end)
+          if i != -1 and j > i:
+              body = body[:i] + block + body[j + len(end):]
+          else:
+              body = body.rstrip() + "\n\n" + block
+          pathlib.Path("body.txt").write_text(body)
+          PY
+
+          gh pr edit "$PR_NUMBER" --repo "$REPO" --body-file body.txt
