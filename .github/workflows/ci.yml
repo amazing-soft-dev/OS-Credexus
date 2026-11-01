@@ -92,7 +92,7 @@ jobs:
       - name: Typecheck and lint
         if: steps.detect.outputs.present == 'true'
         working-directory: frontend
-        run: npx tsc --noEmit
+        run: npx react-router typegen && npx tsc --noEmit
 
       - name: Build
         if: steps.detect.outputs.present == 'true'
