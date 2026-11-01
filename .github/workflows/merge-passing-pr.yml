@@ -20,7 +20,8 @@ jobs:
   merge:
     if: >-
       github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.event == 'pull_request'
+      github.event.workflow_run.event == 'pull_request' &&
+      !startsWith(github.event.workflow_run.head_branch, 'dependabot/')
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -28,6 +29,13 @@ jobs:
       HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
       PULL_REQUESTS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
     steps:
+      - name: Require GH_TOKEN
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Repository secret GH_TOKEN is not set. Add a personal access token (repo + workflow scopes) under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
       - name: Merge eligible pull requests
         run: |
           set -euo pipefail
