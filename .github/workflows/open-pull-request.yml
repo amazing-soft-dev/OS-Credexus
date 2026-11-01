@@ -114,7 +114,9 @@ jobs:
             fi
           done < candidates.txt
 
-          gh pr view "$PR_NUMBER" --repo "$REPO" --json body --jq .body > body.txt
+          # REST rather than `gh pr view/edit`: those use GraphQL queries that
+          # need read:org, which a repo+workflow token does not have.
+          gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '.body // ""' > body.txt
           python3 - <<'PY'
           import pathlib
 
@@ -131,4 +133,4 @@ jobs:
           pathlib.Path("body.txt").write_text(body)
           PY
 
-          gh pr edit "$PR_NUMBER" --repo "$REPO" --body-file body.txt
+          gh api --method PATCH "repos/$REPO/pulls/$PR_NUMBER" -F body=@body.txt > /dev/null
