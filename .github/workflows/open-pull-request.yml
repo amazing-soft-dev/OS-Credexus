@@ -29,6 +29,13 @@ jobs:
       REPO: ${{ github.repository }}
       BRANCH: ${{ github.ref_name }}
     steps:
+      - name: Require GH_TOKEN
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Repository secret GH_TOKEN is not set. Add a personal access token (repo + workflow scopes) under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
