@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { Photo } from "~/components/photo";
 import { disciplines } from "~/content/site";
 
 const cardHeight = "md:h-[min(42rem,calc(100svh-8rem))]";
@@ -35,9 +36,10 @@ export function CraftStack() {
             </div>
           </div>
           <div className="bg-[#0d0d0d] p-6 md:min-h-0 md:p-10">
-            <img
+            <Photo
               src={item.image}
               alt={item.alt}
+              frameClassName="md:h-full"
               className="aspect-[4/3] w-full object-cover md:aspect-auto md:h-full"
             />
           </div>

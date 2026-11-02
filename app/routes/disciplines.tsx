@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import type { Route } from "./+types/disciplines";
 import { disciplines } from "~/content/site";
 import { Eyebrow } from "~/components/eyebrow";
+import { Photo } from "~/components/photo";
 import { pageMeta } from "~/lib/seo";
 import { cn } from "~/lib/utils";
 
@@ -47,7 +48,7 @@ export default function Disciplines() {
             className={cn("group block", layoutClass[item.layout])}
           >
             <article className="h-full overflow-hidden border border-line bg-card">
-              <img
+              <Photo
                 src={item.image}
                 alt={item.alt}
                 className={cn(
