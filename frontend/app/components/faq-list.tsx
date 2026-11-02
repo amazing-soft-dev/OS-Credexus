@@ -10,7 +10,7 @@ import { Eyebrow } from "~/components/eyebrow";
 
 export function FaqList() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-24">
+    <section className="mx-auto max-w-7xl px-6 py-24 md:px-8">
       <Eyebrow>Questions</Eyebrow>
       <div className="mt-8 grid gap-10 md:grid-cols-[1fr_1.4fr] md:items-start">
         <h2 className="font-display text-4xl tracking-tight md:text-5xl">

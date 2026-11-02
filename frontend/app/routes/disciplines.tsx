@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import type { Route } from "./+types/disciplines";
 import { disciplines } from "~/content/site";
 import { Eyebrow } from "~/components/eyebrow";
-import { ShineCard } from "~/components/visual/shine-card";
 import { pageMeta } from "~/lib/seo";
 import { cn } from "~/lib/utils";
 
@@ -31,9 +30,9 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Disciplines() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-20">
+    <section className="mx-auto max-w-7xl px-6 py-20 md:px-8">
       <Eyebrow>Disciplines</Eyebrow>
-      <h1 className="mt-6 max-w-3xl font-display text-5xl leading-none tracking-tight md:text-7xl">
+      <h1 className="mt-6 max-w-3xl font-display text-5xl leading-[0.95] font-medium tracking-tight uppercase md:text-7xl">
         A selection of the work we hire for.
       </h1>
       <p className="mt-6 max-w-2xl text-lg text-muted">
@@ -47,12 +46,12 @@ export default function Disciplines() {
             to={`/disciplines/${item.slug}`}
             className={cn("group block", layoutClass[item.layout])}
           >
-            <ShineCard className="h-full border border-line bg-card/80">
+            <article className="h-full overflow-hidden border border-line bg-card">
               <img
                 src={item.image}
                 alt={item.alt}
                 className={cn(
-                  "w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100",
+                  "w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100",
                   imageClass[item.layout],
                 )}
               />
@@ -60,10 +59,10 @@ export default function Disciplines() {
                 <p className="font-display text-[10px] tracking-[0.22em] text-muted">
                   {item.number}
                 </p>
-                <h2 className="mt-2 font-display text-3xl tracking-tight">{item.name}</h2>
+                <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">{item.name}</h2>
                 <p className="mt-2 text-sm text-muted">{item.summary}</p>
               </div>
-            </ShineCard>
+            </article>
           </Link>
         ))}
       </div>
