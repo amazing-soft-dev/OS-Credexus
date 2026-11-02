@@ -1,9 +1,10 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/home";
-import { company, disciplines, engagements, hero, notes, regions, steps } from "~/content/site";
+import { company, engagements, hero, notes, regions, steps } from "~/content/site";
 import { ContactForm } from "~/components/contact-form";
 import { Eyebrow } from "~/components/eyebrow";
 import { FaqList } from "~/components/faq-list";
+import { CraftStack } from "~/components/motion/craft-stack";
 import { Reveal } from "~/components/motion/reveal";
 import { CountUp } from "~/components/visual/count-up";
 import { Button } from "~/components/ui/button";
@@ -61,7 +62,7 @@ export default function Home() {
         </section>
       </Reveal>
 
-      <section className="bg-inverse text-background">
+      <section className="bg-black text-background">
         <div className="mx-auto max-w-7xl px-6 py-24 md:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
@@ -77,32 +78,7 @@ export default function Home() {
               All disciplines
             </Link>
           </div>
-          <div className="mt-14 grid gap-12">
-            {disciplines.map((item) => (
-              <Link
-                key={item.slug}
-                to={`/disciplines/${item.slug}`}
-                className="group grid items-center gap-6 overflow-hidden border-t border-white/15 pt-8 md:grid-cols-2"
-              >
-                <div>
-                  <p className="font-display text-xs tracking-[0.22em] text-background/50">
-                    {item.number}
-                  </p>
-                  <h3 className="mt-3 font-display text-3xl font-medium tracking-tight uppercase md:text-4xl">
-                    {item.name}
-                  </h3>
-                  <p className="mt-3 max-w-md text-sm leading-relaxed text-background/70">
-                    {item.summary}
-                  </p>
-                </div>
-                <img
-                  src={item.image}
-                  alt={item.alt}
-                  className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                />
-              </Link>
-            ))}
-          </div>
+          <CraftStack />
         </div>
       </section>
 
