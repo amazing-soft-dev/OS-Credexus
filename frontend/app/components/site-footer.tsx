@@ -4,9 +4,9 @@ import { company, nav, regions } from "~/content/site";
 export function SiteFooter() {
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-3">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-3 md:px-8">
         <div>
-          <p className="font-display text-2xl tracking-[0.14em]">
+          <p className="font-display text-2xl font-semibold tracking-[0.08em]">
             {company.name.toUpperCase()}
           </p>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
@@ -49,6 +49,9 @@ export function SiteFooter() {
           </a>
         </div>
       </div>
+      <p className="mx-auto max-w-7xl px-6 pb-10 font-display text-6xl font-medium tracking-tight text-foreground uppercase md:px-8 md:text-8xl">
+        {company.name}
+      </p>
     </footer>
   );
 }

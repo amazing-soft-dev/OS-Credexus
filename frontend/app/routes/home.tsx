@@ -1,143 +1,143 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/home";
-import { company, disciplines, engagements, notes, regions, steps } from "~/content/site";
+import { company, disciplines, engagements, hero, notes, regions, steps } from "~/content/site";
 import { ContactForm } from "~/components/contact-form";
 import { Eyebrow } from "~/components/eyebrow";
 import { FaqList } from "~/components/faq-list";
 import { Reveal } from "~/components/motion/reveal";
-import { ShineCard } from "~/components/visual/shine-card";
 import { CountUp } from "~/components/visual/count-up";
+import { Button } from "~/components/ui/button";
 import { pageMeta } from "~/lib/seo";
-import { cn } from "~/lib/utils";
 
 export function meta({}: Route.MetaArgs) {
   return pageMeta({
     title: "Credexus",
     description: company.lede,
     path: "/",
+    image: hero.image,
   });
 }
-
-const layoutClass = {
-  portrait: "",
-  square: "",
-  wide: "md:col-span-2",
-  landscape: "",
-} as const;
-
-const imageClass = {
-  portrait: "aspect-[3/4]",
-  square: "aspect-square",
-  wide: "aspect-video",
-  landscape: "aspect-[4/3]",
-} as const;
 
 export default function Home() {
   return (
     <>
-      <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
-        <Eyebrow>Credexus</Eyebrow>
-        <h1 className="mt-6 font-display text-6xl leading-[0.9] tracking-tight md:text-8xl">
-          CREDEXUS
-        </h1>
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
-          {company.lede}
-        </p>
+      <section className="relative min-h-[92vh] overflow-hidden bg-[#e4572e]">
+        <img
+          src={hero.image}
+          alt={hero.alt}
+          width={1600}
+          height={1067}
+          className="absolute inset-0 h-full w-full object-cover object-[72%_center]"
+        />
+        <div className="relative z-10 flex min-h-[92vh] flex-col justify-end px-6 pt-28 pb-12 md:w-[54%] md:px-10 md:pb-16">
+          <h1 className="font-display text-5xl leading-[0.9] font-medium tracking-tight text-white uppercase md:text-7xl lg:text-8xl">
+            Engineers, introduced with intent
+            <span className="text-accent">*</span>
+          </h1>
+          <p className="mt-6 max-w-md text-sm leading-relaxed text-white md:text-base">
+            {company.lede}
+          </p>
+        </div>
       </section>
 
-      <img
-        src="/images/hero.webp"
-        alt="A dark studio with a closed laptop and thin rays of cyan light."
-        width={1600}
-        height={900}
-        className="aspect-video w-full object-cover"
-      />
-
       <Reveal>
-        <section className="mx-auto max-w-6xl px-6 py-24">
-          <Eyebrow>Regions</Eyebrow>
-          <h2 className="mt-4 max-w-xl font-display text-4xl tracking-tight md:text-5xl">
-            Four regions. One standard.
-          </h2>
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {regions.map((region) => (
-              <ShineCard key={region.slug} className="border border-line bg-card/80">
-                <img
-                  src={region.image}
-                  alt={region.alt}
-                  className="aspect-[16/10] w-full object-cover"
-                />
-                <div className="p-5">
-                  <h3 className="font-display text-2xl tracking-tight">
-                    {region.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {region.summary}
-                  </p>
-                </div>
-              </ShineCard>
-            ))}
+        <section className="mx-auto grid max-w-7xl gap-10 px-6 py-24 md:grid-cols-[0.8fr_1.2fr] md:px-8">
+          <Eyebrow>Who we are</Eyebrow>
+          <div>
+            <h2 className="font-display text-4xl leading-[0.95] font-medium tracking-tight uppercase md:text-6xl">
+              We introduce engineers. We do not invent them.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              {company.lede} The people you meet are practicing engineers. The
+              portraits on the about page are the Credexus team who make those
+              introductions.
+            </p>
+            <div className="mt-8">
+              <Button asChild>
+                <Link to="/about">Know more about us</Link>
+              </Button>
+            </div>
           </div>
         </section>
       </Reveal>
 
-      <img
-        src="/images/abstract-rays.webp"
-        alt=""
-        className="h-40 w-full object-cover md:h-56"
-      />
-
-      <Reveal>
-        <section className="mx-auto max-w-6xl px-6 py-24">
+      <section className="bg-inverse text-background">
+        <div className="mx-auto max-w-7xl px-6 py-24 md:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Eyebrow>Disciplines</Eyebrow>
-              <h2 className="mt-4 max-w-xl font-display text-4xl tracking-tight md:text-5xl">
+              <Eyebrow className="text-background/55">Disciplines</Eyebrow>
+              <h2 className="mt-4 max-w-xl font-display text-4xl leading-[0.95] font-medium tracking-tight uppercase md:text-6xl">
                 The crafts we introduce
               </h2>
             </div>
-            <Link to="/disciplines" className="text-sm text-muted hover:text-foreground">
+            <Link
+              to="/disciplines"
+              className="text-sm text-background/70 hover:text-background"
+            >
               All disciplines
             </Link>
           </div>
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
+          <div className="mt-14 grid gap-12">
             {disciplines.map((item) => (
               <Link
                 key={item.slug}
                 to={`/disciplines/${item.slug}`}
-                className={cn("group block", layoutClass[item.layout])}
+                className="group grid items-center gap-6 overflow-hidden border-t border-white/15 pt-8 md:grid-cols-2"
               >
-                <ShineCard className="h-full border border-line bg-card/80">
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    className={cn(
-                      "w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100",
-                      imageClass[item.layout],
-                    )}
-                  />
-                  <div className="flex items-baseline justify-between gap-4 p-5">
-                    <div>
-                      <p className="font-display text-[10px] tracking-[0.22em] text-muted">
-                        {item.number}
-                      </p>
-                      <h3 className="mt-1 font-display text-2xl tracking-tight">
-                        {item.name}
-                      </h3>
-                      <p className="mt-2 text-sm text-muted">{item.summary}</p>
-                    </div>
-                  </div>
-                </ShineCard>
+                <div>
+                  <p className="font-display text-xs tracking-[0.22em] text-background/50">
+                    {item.number}
+                  </p>
+                  <h3 className="mt-3 font-display text-3xl font-medium tracking-tight uppercase md:text-4xl">
+                    {item.name}
+                  </h3>
+                  <p className="mt-3 max-w-md text-sm leading-relaxed text-background/70">
+                    {item.summary}
+                  </p>
+                </div>
+                <img
+                  src={item.image}
+                  alt={item.alt}
+                  className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
               </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-6 py-24 md:px-8">
+          <Eyebrow>Regions</Eyebrow>
+          <h2 className="mt-4 max-w-xl font-display text-4xl font-medium tracking-tight uppercase md:text-6xl">
+            Four regions. One standard.
+          </h2>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {regions.map((region) => (
+              <article key={region.slug} className="relative overflow-hidden">
+                <img
+                  src={region.image}
+                  alt={region.alt}
+                  className="aspect-[4/3] w-full object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent p-6 text-white">
+                  <h3 className="font-display text-2xl font-medium tracking-tight uppercase">
+                    {region.name}
+                  </h3>
+                  <p className="mt-2 max-w-md text-sm leading-relaxed text-white/85">
+                    {region.summary}
+                  </p>
+                </div>
+              </article>
             ))}
           </div>
         </section>
       </Reveal>
 
       <Reveal>
-        <section className="mx-auto max-w-6xl px-6 py-8">
+        <section className="mx-auto max-w-7xl px-6 py-8 md:px-8">
           <Eyebrow>Introductions</Eyebrow>
-          <h2 className="mt-4 font-display text-4xl tracking-tight md:text-5xl">
+          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight uppercase md:text-5xl">
             How an introduction works
           </h2>
           <ol className="mt-10 grid gap-6 md:grid-cols-3">
@@ -146,7 +146,7 @@ export default function Home() {
                 <p className="font-display text-xs tracking-[0.22em] text-muted">
                   {step.number}
                 </p>
-                <h3 className="mt-3 font-display text-2xl tracking-tight">
+                <h3 className="mt-3 font-display text-2xl font-medium tracking-tight">
                   {step.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">{step.body}</p>
@@ -157,15 +157,17 @@ export default function Home() {
       </Reveal>
 
       <Reveal>
-        <section className="mx-auto max-w-6xl px-6 py-24">
+        <section className="mx-auto max-w-7xl px-6 py-24 md:px-8">
           <Eyebrow>Engagements</Eyebrow>
-          <h2 className="mt-4 max-w-xl font-display text-4xl tracking-tight md:text-5xl">
+          <h2 className="mt-4 max-w-xl font-display text-4xl font-medium tracking-tight uppercase md:text-5xl">
             Three ways to work with us
           </h2>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {engagements.map((item) => (
-              <ShineCard key={item.title} className="border border-line bg-card/80 p-6">
-                <h3 className="font-display text-2xl tracking-tight">{item.title}</h3>
+              <article key={item.title} className="border border-line bg-card p-6">
+                <h3 className="font-display text-2xl font-medium tracking-tight uppercase">
+                  {item.title}
+                </h3>
                 <p className="mt-3 text-sm text-muted">{item.summary}</p>
                 <ul className="mt-6 grid gap-3 text-sm leading-relaxed">
                   {item.points.map((point) => (
@@ -174,25 +176,25 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-              </ShineCard>
+              </article>
             ))}
           </div>
         </section>
       </Reveal>
 
       <section className="border-y border-line">
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-2">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2 md:px-8">
           <CountUp value={4} label="Regions we hire from" />
           <CountUp value={8} label="Disciplines we introduce" />
         </div>
       </section>
 
       <Reveal>
-        <section className="mx-auto max-w-6xl px-6 py-24">
+        <section className="mx-auto max-w-7xl px-6 py-24 md:px-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <Eyebrow>Notes</Eyebrow>
-              <h2 className="mt-4 font-display text-4xl tracking-tight md:text-5xl">
+              <h2 className="mt-4 font-display text-4xl font-medium tracking-tight uppercase md:text-5xl">
                 Notes from the desk
               </h2>
             </div>
@@ -203,32 +205,28 @@ export default function Home() {
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {notes.map((note) => (
               <Link key={note.slug} to={`/notes/${note.slug}`} className="group block">
-                <ShineCard className="h-full border border-line bg-card/80">
+                <article className="h-full overflow-hidden border border-line bg-card">
                   <img
                     src={note.image}
                     alt={note.alt}
-                    className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                   <div className="p-5">
-                    <h3 className="font-display text-xl tracking-tight">{note.title}</h3>
+                    <h3 className="font-display text-xl font-medium tracking-tight">
+                      {note.title}
+                    </h3>
                     <p className="mt-2 text-sm text-muted">{note.dek}</p>
                   </div>
-                </ShineCard>
+                </article>
               </Link>
             ))}
           </div>
         </section>
       </Reveal>
 
-      <img
-        src="/images/abstract-rays.webp"
-        alt=""
-        className="h-40 w-full object-cover md:h-56"
-      />
-
-      <section className="mx-auto max-w-6xl px-6 py-24" id="contact">
+      <section className="mx-auto max-w-7xl px-6 py-24 md:px-8" id="contact">
         <Eyebrow>Contact</Eyebrow>
-        <h2 className="mt-4 font-display text-4xl tracking-tight md:text-5xl">
+        <h2 className="mt-4 font-display text-4xl font-medium tracking-tight uppercase md:text-5xl">
           Let&apos;s start a conversation
         </h2>
         <p className="mt-4 max-w-xl text-muted">

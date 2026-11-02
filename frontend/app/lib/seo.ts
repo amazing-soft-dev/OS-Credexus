@@ -1,5 +1,5 @@
 const DEFAULT_SITE_URL = "https://credexus.org";
-const DEFAULT_IMAGE = "/og.png";
+const DEFAULT_IMAGE = "/images/hero.jpg";
 
 export function siteOrigin() {
   const fromVite = import.meta.env.VITE_SITE_URL;

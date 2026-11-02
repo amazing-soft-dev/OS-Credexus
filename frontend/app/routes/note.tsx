@@ -39,7 +39,7 @@ export default function NotePage({ loaderData }: Route.ComponentProps) {
       />
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>Notes</Eyebrow>
-        <h1 className="mt-4 font-display text-4xl tracking-tight md:text-6xl">
+        <h1 className="mt-4 font-display text-4xl font-medium tracking-tight md:text-6xl">
           {note.title}
         </h1>
         <p className="mt-6 text-lg text-muted">{note.dek}</p>

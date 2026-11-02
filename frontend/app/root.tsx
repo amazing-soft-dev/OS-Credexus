@@ -7,7 +7,6 @@ import { NotFound } from "~/components/not-found";
 import { SiteFooter } from "~/components/site-footer";
 import { SiteHeader } from "~/components/site-header";
 import { SmoothScroll } from "~/components/motion/smooth-scroll";
-import { LightRays } from "~/components/visual/light-rays";
 import "./app.css";
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -16,15 +15,14 @@ export function Layout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#07080a" />
+        <meta name="theme-color" content="#ffffff" />
         <Meta />
         <Links />
       </head>
       <body>
         <MotionConfig reducedMotion="user">
           <SmoothScroll />
-          <LightRays />
-          <div className="relative z-10">
+          <div className="relative">
             <a
               href="#main"
               className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-foreground focus:px-3 focus:py-2 focus:text-background"
@@ -62,7 +60,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main id="main" className="mx-auto max-w-6xl px-6 py-24">
+    <main id="main" className="mx-auto max-w-7xl px-6 py-24 md:px-8">
       <h1 className="font-display text-5xl tracking-tight">Something broke.</h1>
       <p className="mt-4 max-w-xl text-muted">
         The page could not be rendered. Email hello@credexus.org if it keeps

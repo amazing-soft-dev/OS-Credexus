@@ -4,6 +4,20 @@ export const company = {
   lede: "Credexus introduces engineers from Canada, Latin America, Europe, and Asia to Fortune 500 companies and startups that are already working.",
 } as const;
 
+export type PhotoCredit = {
+  photographer: string;
+  page: string;
+};
+
+export const hero = {
+  image: "/images/hero.jpg",
+  alt: "A woman in a grey blazer with a laptop, seated against a bright orange wall.",
+  credit: {
+    photographer: "Christina @ wocintechchat.com",
+    page: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2",
+  },
+} as const satisfies { image: string; alt: string; credit: PhotoCredit };
+
 export const nav = [
   { to: "/", label: "Home", index: "01" },
   { to: "/about", label: "About", index: "02" },
@@ -25,32 +39,48 @@ export const regions = [
   {
     slug: "canada",
     name: "Canada",
-    image: "/images/region-canada.webp",
-    alt: "A coastal city at blue hour, glass towers over dark water.",
+    image: "/images/region-canada.jpg",
+    alt: "Vancouver’s downtown towers and marina in daylight, seen from the seawall.",
+    credit: {
+      photographer: "Masaru Suzuki",
+      page: "https://unsplash.com/photos/hrPcO1Zarzw",
+    },
     summary:
       "Product engineers and specialists who are used to working with US and Canadian companies, often overlapping a full business day.",
   },
   {
     slug: "latam",
     name: "Latin America",
-    image: "/images/region-latam.webp",
-    alt: "A hillside city at dusk, warm windows against dark hills.",
+    image: "/images/region-latam.jpg",
+    alt: "Medellín in daylight, brick houses climbing a green hillside.",
+    credit: {
+      photographer: "Jose Figueroa",
+      page: "https://unsplash.com/photos/_zXn5wWkQig",
+    },
     summary:
       "Engineers across Mexico, Brazil, Argentina, Colombia, and the wider region, hired for proximity to North American hours.",
   },
   {
     slug: "europe",
     name: "Europe",
-    image: "/images/region-europe.webp",
-    alt: "A stone courtyard meeting a glass facade at night.",
+    image: "/images/region-europe.jpg",
+    alt: "A cobbled street in Lisbon in daylight, lined with pale stone buildings.",
+    credit: {
+      photographer: "Teodor Kuduschiev",
+      page: "https://unsplash.com/photos/i9IJ3KR-NaA",
+    },
     summary:
       "Senior engineers from across the continent, including people who have already shipped inside regulated industries.",
   },
   {
     slug: "asia",
     name: "Asia",
-    image: "/images/region-asia.webp",
-    alt: "A dense city at night, seen from above, with restrained lights.",
+    image: "/images/region-asia.jpg",
+    alt: "Tokyo in daylight, dense towers gathered around Tokyo Tower.",
+    credit: {
+      photographer: "Jaison Lin",
+      page: "https://unsplash.com/photos/2WHTac8jVA8",
+    },
     summary:
       "Engineers who extend a team's day, or who own a region of the product outright, from South, Southeast, and East Asia.",
   },
@@ -78,6 +108,7 @@ export type Discipline = {
   summary: string;
   image: string;
   alt: string;
+  credit: PhotoCredit;
   layout: DisciplineLayout;
   intro: string;
   looksLike: string[];
@@ -90,8 +121,12 @@ export const disciplines: Discipline[] = [
     name: "Frontend",
     number: "01",
     summary: "Interfaces that stay clear when the product gets complicated.",
-    image: "/images/discipline-frontend.webp",
-    alt: "A closed laptop in a dark room, lit by a thin cyan edge.",
+    image: "/images/discipline-frontend.jpg",
+    alt: "A hand drawing interface screens on a tablet, beside a keyboard on a light desk.",
+    credit: {
+      photographer: "Unsplash",
+      page: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c",
+    },
     layout: "portrait",
     intro:
       "Frontend engineers at Credexus build the surface customers actually touch. We introduce people who can hold a design system, a rendering model, and the awkward states in between.",
@@ -108,8 +143,12 @@ export const disciplines: Discipline[] = [
     name: "Backend",
     number: "02",
     summary: "Services, data, and the parts of the product nobody sees until they fail.",
-    image: "/images/discipline-backend.webp",
-    alt: "A quiet server aisle with a few small status lights.",
+    image: "/images/discipline-backend.jpg",
+    alt: "Server racks in a data-center aisle, with status lights and bundled cables.",
+    credit: {
+      photographer: "Taylor Vick",
+      page: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31",
+    },
     layout: "square",
     intro:
       "Backend engineers here own APIs, data stores, and the operational shape of a system. The introduction is about how they debug a production incident, not how many frameworks they can name.",
@@ -126,8 +165,12 @@ export const disciplines: Discipline[] = [
     name: "Full stack",
     number: "03",
     summary: "Engineers who can take a slice of the product from the schema to the screen.",
-    image: "/images/discipline-fullstack.webp",
-    alt: "Layered glass panels on a black table, reflecting a dim screen.",
+    image: "/images/discipline-fullstack.jpg",
+    alt: "A daylight desk with a laptop and a second monitor, both showing code.",
+    credit: {
+      photographer: "Christopher Gower",
+      page: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    },
     layout: "wide",
     intro:
       "Full stack, for us, means an engineer who can ship a vertical slice and knows when to ask for a specialist. It is not a claim that one person replaces a team.",
@@ -144,8 +187,12 @@ export const disciplines: Discipline[] = [
     name: "Mobile",
     number: "04",
     summary: "iOS, Android, and cross-platform work that still feels native.",
-    image: "/images/discipline-mobile.webp",
-    alt: "A single dark smartphone standing on black stone.",
+    image: "/images/discipline-mobile.jpg",
+    alt: "A smartphone on a pale table, its screen full of apps.",
+    credit: {
+      photographer: "CardMapr.nl",
+      page: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+    },
     layout: "portrait",
     intro:
       "Mobile introductions start with the platform the company actually ships. We do not treat iOS, Android, and React Native as interchangeable labels.",
@@ -162,8 +209,12 @@ export const disciplines: Discipline[] = [
     name: "Data",
     number: "05",
     summary: "Models, pipelines, and the people who make a number trustworthy.",
-    image: "/images/discipline-data.webp",
-    alt: "A dark monitor showing a soft, unreadable grid of points.",
+    image: "/images/discipline-data.jpg",
+    alt: "A laptop in a bright room, the screen covered in charts and figures.",
+    credit: {
+      photographer: "Carlos Muza",
+      page: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+    },
     layout: "landscape",
     intro:
       "Data engineers and analytics engineers here are hired to make a company's numbers boring. The work is modeling, pipelines, and the definitions everyone else argues about.",
@@ -180,8 +231,12 @@ export const disciplines: Discipline[] = [
     name: "AI",
     number: "06",
     summary: "Applied machine learning that has to live in a product, not a demo.",
-    image: "/images/discipline-ai.webp",
-    alt: "Soft branching filaments of light on a black field.",
+    image: "/images/discipline-ai.jpg",
+    alt: "Engineers working on laptops around a shared table, code open on the screens.",
+    credit: {
+      photographer: "fauxels",
+      page: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+    },
     layout: "square",
     intro:
       "AI hiring at Credexus is for systems that have to be evaluated, monitored, and changed. We introduce engineers who have put a model in front of users and stayed for what happened next.",
@@ -198,8 +253,12 @@ export const disciplines: Discipline[] = [
     name: "Salesforce",
     number: "07",
     summary: "CRM work for companies whose process is the product.",
-    image: "/images/discipline-salesforce.webp",
-    alt: "A glass office wall at night with a faint reflection and one warm lamp.",
+    image: "/images/discipline-salesforce.jpg",
+    alt: "Two people in a bright office, a laptop and papers between them.",
+    credit: {
+      photographer: "Unsplash",
+      page: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf",
+    },
     layout: "landscape",
     intro:
       "Salesforce engineers and architects here design the system of record, not a pile of unmanaged fields. The introduction includes how they handle integrations and who will own the org after launch.",
@@ -216,8 +275,12 @@ export const disciplines: Discipline[] = [
     name: "GIS",
     number: "08",
     summary: "Spatial products for teams that work on land, infrastructure, and maps.",
-    image: "/images/discipline-gis.webp",
-    alt: "A dark aerial view of a coastline and terrain ridges.",
+    image: "/images/discipline-gis.jpg",
+    alt: "A paper world map on a wall, marked with hundreds of pins.",
+    credit: {
+      photographer: "Andrew Neel",
+      page: "https://images.unsplash.com/photo-1524661135-423995f22d0b",
+    },
     layout: "wide",
     intro:
       "GIS engineers build products where location is the data, not a pin on a marketing page. We introduce people who have shipped spatial systems, not only drawn a map.",
@@ -288,8 +351,12 @@ export const notes = [
     slug: "hiring-across-regions",
     title: "Hiring across regions is a brief, not a timezone trick",
     dek: "Canada, Latin America, Europe, and Asia are not four flavors of the same engineer.",
-    image: "/images/note-regions.webp",
-    alt: "Four faint horizon lines stacked in dark haze.",
+    image: "/images/note-regions.jpg",
+    alt: "A laptop on a wooden table showing a video call with many people.",
+    credit: {
+      photographer: "Chris Montgomery",
+      page: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b",
+    },
     paragraphs: [
       "A company usually starts with a timezone. They want overlap with a city they already work in, and they treat the rest of the world as a way to buy that overlap more cheaply. The introduction fails when that is the whole brief.",
       "An engineer in São Paulo, Warsaw, Toronto, or Singapore is not a shifted version of a hire you would have made locally. Employment norms, notice periods, language in the codebase, and what 'senior' has meant in their last company all travel with them.",
@@ -301,8 +368,12 @@ export const notes = [
     slug: "the-role-brief",
     title: "The role brief is the product",
     dek: "Most bad introductions start with a title and a pile of tools.",
-    image: "/images/note-brief.webp",
-    alt: "A blank notebook and a pencil on a dark stone desk.",
+    image: "/images/note-brief.jpg",
+    alt: "An open notebook and a pen on a light wooden desk.",
+    credit: {
+      photographer: "Thought Catalog",
+      page: "https://images.unsplash.com/photo-1517842645767-c639042777db",
+    },
     paragraphs: [
       "Send us a title and a list of frameworks and we can still introduce someone. They will be a plausible engineer. They may not be the one who can do the job you have.",
       "A useful brief says what will be true in six months if the hire works. It names the system they will touch, the people they will sit with, and the decisions they are allowed to make. Seniority is a consequence of that, not a line at the top.",
@@ -314,8 +385,12 @@ export const notes = [
     slug: "specialists",
     title: "Specialists are not generalists with a new label",
     dek: "Salesforce and GIS make the point. So do AI and data, once the demo is over.",
-    image: "/images/note-specialists.webp",
-    alt: "A metal instrument beside a folded paper terrain model.",
+    image: "/images/note-specialists.jpg",
+    alt: "A paper world map on a wall, marked with hundreds of pins.",
+    credit: {
+      photographer: "Andrew Neel",
+      page: "https://images.unsplash.com/photo-1524661135-423995f22d0b",
+    },
     paragraphs: [
       "A full stack engineer can learn a CRM. That is not the same as hiring someone who has carried a Salesforce org through a merger. A product engineer can place a pin on a map. That is not the same as hiring someone who has argued about a projection with the people who use the map in the field.",
       "Credexus keeps those searches separate on purpose. The disciplines page is not a menu of synonyms. Frontend, backend, full stack, and mobile are the general software work. Data, AI, Salesforce, and GIS are specialties with their own standards.",
@@ -330,6 +405,69 @@ export type Note = (typeof notes)[number];
 export function getNote(slug: string | undefined) {
   return notes.find((item) => item.slug === slug);
 }
+
+export const team = [
+  {
+    name: "Mira Calder",
+    role: "Founder",
+    image: "/images/team-mira.jpg",
+    alt: "Portrait of a woman in a striped jacket, in front of a glass office wall.",
+    credit: {
+      photographer: "Christina @ wocintechchat.com",
+      page: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+    },
+  },
+  {
+    name: "Jonas Hale",
+    role: "Head of introductions",
+    image: "/images/team-jonas.jpg",
+    alt: "Portrait of a man in a navy suit and glasses, in a bright office.",
+    credit: {
+      photographer: "LinkedIn Sales Solutions",
+      page: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
+    },
+  },
+  {
+    name: "Priya Raman",
+    role: "Canada",
+    image: "/images/team-priya.jpg",
+    alt: "Studio portrait of a woman with long dark hair against a pale backdrop.",
+    credit: {
+      photographer: "vivek",
+      page: "https://unsplash.com/photos/lT8eFqDQVuA",
+    },
+  },
+  {
+    name: "Mateo Silva",
+    role: "Latin America",
+    image: "/images/team-mateo.jpg",
+    alt: "Portrait of a man in a grey sweater against a plain blue-grey backdrop.",
+    credit: {
+      photographer: "Unsplash",
+      page: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    },
+  },
+  {
+    name: "Elena Varga",
+    role: "Europe",
+    image: "/images/team-elena.jpg",
+    alt: "Portrait of a woman in a striped shirt, outdoors in warm light.",
+    credit: {
+      photographer: "Unsplash",
+      page: "https://images.unsplash.com/photo-1544005313-94ddf0286df2",
+    },
+  },
+  {
+    name: "Kenji Sato",
+    role: "Asia",
+    image: "/images/team-kenji.jpg",
+    alt: "Portrait of a man in a white shirt and tie, against a wood wall.",
+    credit: {
+      photographer: "Unsplash",
+      page: "https://images.unsplash.com/photo-1543132220-3ec99c6094dc",
+    },
+  },
+] as const;
 
 export const faqs = [
   {
