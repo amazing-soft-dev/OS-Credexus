@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/home";
-import { company, engagements, hero, notes, regions, steps } from "~/content/site";
+import { company, disciplines, engagements, hero, notes, regions, steps } from "~/content/site";
 import { ContactForm } from "~/components/contact-form";
 import { Eyebrow } from "~/components/eyebrow";
 import { FaqList } from "~/components/faq-list";
@@ -162,7 +162,7 @@ export default function Home() {
       <section className="border-y border-line">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2 md:px-8">
           <CountUp value={4} label="Regions we hire from" />
-          <CountUp value={8} label="Disciplines we introduce" />
+          <CountUp value={disciplines.length} label="Disciplines we introduce" />
         </div>
       </section>
 
