@@ -1,6 +1,7 @@
 import type { Route } from "./+types/note";
 import { getNote } from "~/content/site";
 import { Eyebrow } from "~/components/eyebrow";
+import { Photo } from "~/components/photo";
 import { pageMeta } from "~/lib/seo";
 
 export function loader({ params }: Route.LoaderArgs) {
@@ -32,7 +33,7 @@ export default function NotePage({ loaderData }: Route.ComponentProps) {
 
   return (
     <article>
-      <img
+      <Photo
         src={note.image}
         alt={note.alt}
         className="aspect-[16/7] w-full object-cover"

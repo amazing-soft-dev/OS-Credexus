@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import type { Route } from "./+types/about";
 import { company, regions, steps, team } from "~/content/site";
 import { Eyebrow } from "~/components/eyebrow";
+import { Photo } from "~/components/photo";
 import { Reveal } from "~/components/motion/reveal";
 import { Button } from "~/components/ui/button";
 import { pageMeta } from "~/lib/seo";
@@ -64,7 +65,7 @@ export default function About() {
                 key={region.slug}
                 className="grid items-center gap-6 border-t border-line pt-8 md:grid-cols-[280px_1fr]"
               >
-                <img
+                <Photo
                   src={region.image}
                   alt={region.alt}
                   className="aspect-[4/3] w-full object-cover"
@@ -97,9 +98,10 @@ export default function About() {
             {team.map((person) => (
               <li key={person.name}>
                 <div className="aspect-[4/5] overflow-hidden bg-card">
-                  <img
+                  <Photo
                     src={person.image}
                     alt={person.alt}
+                    frameClassName="h-full w-full"
                     className="h-full w-full object-cover object-[center_18%]"
                   />
                 </div>
