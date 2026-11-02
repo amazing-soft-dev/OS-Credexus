@@ -23,7 +23,7 @@ export function meta({}: Route.MetaArgs) {
   return pageMeta({
     title: "Disciplines",
     description:
-      "Frontend, backend, full stack, mobile, data, AI, Salesforce, and GIS. Separate searches, not one generic profile.",
+      "Fifteen separate searches, from product engineering to DevOps, data science, embedded systems, games, blockchain, and ERP. Not one generic profile.",
     path: "/disciplines",
   });
 }
@@ -36,7 +36,7 @@ export default function Disciplines() {
         A selection of the work we hire for.
       </h1>
       <p className="mt-6 max-w-2xl text-lg text-muted">
-        Eight disciplines. General software engineering beside the specialties
+        Fifteen disciplines. General software engineering beside the specialties
         that do not survive being renamed &quot;full stack.&quot;
       </p>
       <div className="mt-12 grid gap-4 md:grid-cols-2">
