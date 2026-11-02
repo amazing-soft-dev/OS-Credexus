@@ -22,20 +22,21 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <>
-      <section className="relative min-h-[92vh] overflow-hidden bg-[#e4572e]">
+      <section className="relative min-h-[92vh] overflow-hidden bg-[#c4a574]">
         <img
           src={hero.image}
           alt={hero.alt}
           width={1600}
           height={1067}
-          className="absolute inset-0 h-full w-full object-cover object-[72%_center]"
+          className="absolute inset-0 h-full w-full object-cover object-[68%_center]"
         />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-full bg-gradient-to-r from-background via-background/85 to-transparent md:w-[68%]" />
         <div className="relative z-10 flex min-h-[92vh] flex-col justify-end px-6 pt-28 pb-12 md:w-[54%] md:px-10 md:pb-16">
-          <h1 className="font-display text-5xl leading-[0.9] font-medium tracking-tight text-white uppercase md:text-7xl lg:text-8xl">
+          <h1 className="font-display text-5xl leading-[0.9] font-medium tracking-tight text-foreground uppercase md:text-7xl lg:text-8xl">
             Engineers, introduced with intent
             <span className="text-accent">*</span>
           </h1>
-          <p className="mt-6 max-w-md text-sm leading-relaxed text-white md:text-base">
+          <p className="mt-6 max-w-md text-sm leading-relaxed text-foreground md:text-base">
             {company.lede}
           </p>
         </div>
