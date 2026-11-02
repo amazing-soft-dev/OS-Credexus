@@ -9,9 +9,9 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-line/80 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
-        <Link to="/" className="font-display text-lg tracking-[0.18em]">
+    <header className="sticky top-0 z-30 border-b border-line bg-background/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 md:px-8">
+        <Link to="/" className="font-display text-lg font-semibold tracking-[0.08em]">
           {company.name.toUpperCase()}
         </Link>
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
@@ -48,7 +48,7 @@ export function SiteHeader() {
         </div>
         <button
           type="button"
-          className="inline-flex size-10 items-center justify-center border border-line md:hidden"
+          className="inline-flex size-10 items-center justify-center rounded-full border border-line md:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((value) => !value)}

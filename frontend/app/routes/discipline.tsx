@@ -39,9 +39,9 @@ export default function Discipline({ loaderData }: Route.ComponentProps) {
         alt={discipline.alt}
         className="aspect-[16/8] w-full object-cover"
       />
-      <div className="mx-auto max-w-6xl px-6 py-16">
+      <div className="mx-auto max-w-7xl px-6 py-16 md:px-8">
         <Eyebrow>{`Discipline ${discipline.number}`}</Eyebrow>
-        <h1 className="mt-4 font-display text-5xl tracking-tight md:text-7xl">
+        <h1 className="mt-4 font-display text-5xl font-medium tracking-tight uppercase md:text-7xl">
           {discipline.name}
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">

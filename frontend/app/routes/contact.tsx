@@ -67,9 +67,9 @@ export function meta({}: Route.MetaArgs) {
 export default function Contact({ loaderData }: Route.ComponentProps) {
   return (
     <>
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-7xl px-6 py-20 md:px-8">
         <Eyebrow>Contact</Eyebrow>
-        <h1 className="mt-6 font-display text-5xl tracking-tight md:text-7xl">
+        <h1 className="mt-6 font-display text-5xl font-medium tracking-tight uppercase md:text-7xl">
           CONNECT WITH US.
         </h1>
         <p className="mt-6 max-w-xl text-lg text-muted">
