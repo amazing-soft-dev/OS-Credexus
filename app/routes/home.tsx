@@ -3,6 +3,8 @@ import type { Route } from "./+types/home";
 import { company, disciplines, engagements, hero, notes, regions, steps } from "~/content/site";
 import { ContactForm } from "~/components/contact-form";
 import { Eyebrow } from "~/components/eyebrow";
+import { Logo } from "~/components/logo";
+import { Photo } from "~/components/photo";
 import { FaqList } from "~/components/faq-list";
 import { CraftStack } from "~/components/motion/craft-stack";
 import { Reveal } from "~/components/motion/reveal";
@@ -23,16 +25,17 @@ export default function Home() {
   return (
     <>
       <section className="relative min-h-[92vh] overflow-hidden bg-[#c4a574]">
-        <img
+        <Photo
+          priority
           src={hero.image}
           alt={hero.alt}
-          width={1600}
-          height={1067}
-          className="absolute inset-0 h-full w-full object-cover object-[68%_center]"
+          frameClassName="absolute inset-0 h-full w-full"
+          className="h-full w-full object-cover object-[68%_center]"
         />
         <div className="pointer-events-none absolute inset-y-0 left-0 w-full bg-gradient-to-r from-background via-background/85 to-transparent md:w-[68%]" />
         <div className="relative z-10 flex min-h-[92vh] flex-col justify-end px-6 pt-28 pb-12 md:w-[54%] md:px-10 md:pb-16">
-          <h1 className="font-display text-5xl leading-[0.9] font-medium tracking-tight text-foreground uppercase md:text-7xl lg:text-8xl">
+          <Logo size="md" />
+          <h1 className="mt-6 font-display text-5xl leading-[0.9] font-medium tracking-tight text-foreground uppercase md:text-7xl lg:text-8xl">
             Engineers, introduced with intent
             <span className="text-accent">*</span>
           </h1>
@@ -44,7 +47,10 @@ export default function Home() {
 
       <Reveal>
         <section className="mx-auto grid max-w-7xl gap-10 px-6 py-24 md:grid-cols-[0.8fr_1.2fr] md:px-8">
-          <Eyebrow>Who we are</Eyebrow>
+          <div className="flex items-center gap-3">
+            <Logo />
+            <Eyebrow>Who we are</Eyebrow>
+          </div>
           <div>
             <h2 className="font-display text-4xl leading-[0.95] font-medium tracking-tight uppercase md:text-6xl">
               We introduce engineers. We do not invent them.
@@ -92,7 +98,7 @@ export default function Home() {
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             {regions.map((region) => (
               <article key={region.slug} className="relative overflow-hidden">
-                <img
+                <Photo
                   src={region.image}
                   alt={region.alt}
                   className="aspect-[4/3] w-full object-cover"
@@ -183,7 +189,7 @@ export default function Home() {
             {notes.map((note) => (
               <Link key={note.slug} to={`/notes/${note.slug}`} className="group block">
                 <article className="h-full overflow-hidden border border-line bg-card">
-                  <img
+                  <Photo
                     src={note.image}
                     alt={note.alt}
                     className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"

@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import type { Route } from "./+types/discipline";
 import { getDiscipline } from "~/content/site";
 import { Eyebrow } from "~/components/eyebrow";
+import { Photo } from "~/components/photo";
 import { Button } from "~/components/ui/button";
 import { pageMeta } from "~/lib/seo";
 
@@ -34,7 +35,7 @@ export default function Discipline({ loaderData }: Route.ComponentProps) {
 
   return (
     <article>
-      <img
+      <Photo
         src={discipline.image}
         alt={discipline.alt}
         className="aspect-[16/8] w-full object-cover"

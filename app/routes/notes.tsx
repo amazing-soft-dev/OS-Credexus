@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import type { Route } from "./+types/notes";
 import { notes } from "~/content/site";
 import { Eyebrow } from "~/components/eyebrow";
+import { Photo } from "~/components/photo";
 import { pageMeta } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
@@ -24,7 +25,7 @@ export default function Notes() {
         {notes.map((note) => (
           <Link key={note.slug} to={`/notes/${note.slug}`} className="group block">
             <article className="h-full overflow-hidden border border-line bg-card">
-              <img
+              <Photo
                 src={note.image}
                 alt={note.alt}
                 className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"

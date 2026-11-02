@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { company, nav, regions } from "~/content/site";
+import { Logo } from "~/components/logo";
 import { RollingText } from "~/components/motion/rolling-text";
 
 const linkType =
@@ -96,9 +97,12 @@ export function SiteFooter() {
 
       <div className="relative z-10 px-6 pt-12 min-[1100px]:px-[60px] min-[1100px]:pt-[60px]">
         <div className="grid gap-12 min-[1100px]:grid-cols-[minmax(0,1.2fr)_auto_auto] min-[1100px]:items-start min-[1100px]:gap-x-16">
-          <p className="max-w-[500px] text-2xl leading-[1.4] font-semibold">
-            {company.lede}
-          </p>
+          <div>
+            <Logo size="md" />
+            <p className="mt-6 max-w-[500px] text-2xl leading-[1.4] font-semibold">
+              {company.lede}
+            </p>
+          </div>
           <div>
             <p className="font-display text-sm font-semibold tracking-[0.05em] text-white/50 uppercase">
               Navigation
