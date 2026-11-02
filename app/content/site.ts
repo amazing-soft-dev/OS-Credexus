@@ -95,6 +95,13 @@ export const disciplineSlugs = [
   "ai",
   "salesforce",
   "gis",
+  "devops",
+  "cloud",
+  "data-science",
+  "embedded",
+  "games",
+  "blockchain",
+  "erp",
 ] as const;
 
 export type DisciplineSlug = (typeof disciplineSlugs)[number];
@@ -292,6 +299,160 @@ export const disciplines: Discipline[] = [
     companiesAsk:
       "Utilities, logistics, climate, and public-sector teams ask when the map is the workflow. The brief should name the data, the users, and whether the hire is embedding in a software team or leading the spatial work.",
   },
+  {
+    slug: "devops",
+    name: "DevOps / SRE",
+    number: "09",
+    summary: "The people who keep a system up after the launch post is over.",
+    image: "/images/discipline-devops.jpg",
+    alt: "An engineer seated at a control-room desk, watching a wall of monitoring screens.",
+    credit: {
+      photographer: "Sergey Sergeev",
+      page: "https://www.pexels.com/photo/engineer-at-control-room-monitoring-screens-32845700/",
+    },
+    layout: "portrait",
+    intro:
+      "DevOps and site reliability at Credexus is the work of making a release boring. We introduce engineers who have carried an on-call, a pipeline, and the argument about what up means.",
+    looksLike: [
+      "CI, progressive delivery, and a rollback that has been practiced",
+      "SLOs, error budgets, and an on-call rotation that is not one person's name",
+      "The difference between a platform team and a person asked to own every incident",
+    ],
+    companiesAsk:
+      "The brief should say what currently pages someone at night, and whether the hire is building the platform or joining the rotation that already exists.",
+  },
+  {
+    slug: "cloud",
+    name: "Cloud & infrastructure",
+    number: "10",
+    summary: "Networks, accounts, and the machinery a product actually runs on.",
+    image: "/images/discipline-cloud.jpg",
+    alt: "A hand holding labeled fiber leads in front of a network switch.",
+    credit: {
+      photographer: "Omar Ashraf",
+      page: "https://www.pexels.com/photo/hands-working-on-network-cables-in-data-center-38246354/",
+    },
+    layout: "square",
+    intro:
+      "Cloud and infrastructure engineers here design the accounts, networks, and environments a product runs in. The introduction is about how they change a live system, not which provider logo is on the diagram.",
+    looksLike: [
+      "AWS, GCP, or Azure, named for the estate the company already has",
+      "Networks, identity, and the cost of an environment that nobody can explain",
+      "Infrastructure as code, with a review path and a way back",
+    ],
+    companiesAsk:
+      "Companies ask when the cloud account has become a second product. They want someone who can make the next environment repeatable without freezing the one that is serving traffic.",
+  },
+  {
+    slug: "data-science",
+    name: "Data science",
+    number: "11",
+    summary: "Models and experiments that have to change a decision, not a slide.",
+    image: "/images/discipline-data-science.jpg",
+    alt: "A woman with a clipboard standing beside a whiteboard of hand-drawn bar charts.",
+    credit: {
+      photographer: "RDNE Stock project",
+      page: "https://www.pexels.com/photo/woman-in-black-blazer-standing-beside-a-whiteboard-with-graphs-9034968/",
+    },
+    layout: "wide",
+    intro:
+      "Data science is separate from the data discipline. It is for people who frame a question, test it, and say what the result does not support. A notebook and a warehouse are not the same hire.",
+    looksLike: [
+      "Experiment design, and a result that can be explained to someone who will act on it",
+      "Statistical modeling or applied machine learning, with the evaluation written down",
+      "A clear line between a finding and a model that has to run in production",
+    ],
+    companiesAsk:
+      "The useful brief names the decision the work is supposed to change. That tells us whether you need a scientist, an analytics engineer, or an applied machine-learning engineer.",
+  },
+  {
+    slug: "embedded",
+    name: "Embedded systems",
+    number: "12",
+    summary: "Firmware and hardware for products that cannot be restarted from a laptop.",
+    image: "/images/discipline-embedded.jpg",
+    alt: "An Arduino Uno wired to a breadboard, with a red LED lit beside it.",
+    credit: {
+      photographer: "Chengxin Zhao",
+      page: "https://www.pexels.com/photo/15470542/",
+    },
+    layout: "landscape",
+    intro:
+      "Embedded engineers build the software that lives on the device. We introduce people who have shipped firmware, brought a board up, and stayed for the units that fail in the field.",
+    looksLike: [
+      "C, C++, or Rust on a named microcontroller or SoC, not a generic 'embedded' label",
+      "Drivers, boot, and the constraint of memory, power, and a release you cannot patch casually",
+      "A lab habit: how a failure is reproduced when the device is not on the desk",
+    ],
+    companiesAsk:
+      "The brief should name the silicon, the product, and whether the hire is the first firmware engineer or one more on a team that already has a board in production.",
+  },
+  {
+    slug: "games",
+    name: "Game development",
+    number: "13",
+    summary: "Engineers and technical artists who ship a game, not a demo reel.",
+    image: "/images/discipline-games.jpg",
+    alt: "An artist drawing at a desk, with a tablet showing a black-and-white character.",
+    credit: {
+      photographer: "Pavel Danilyuk",
+      page: "https://www.pexels.com/photo/a-man-at-work-drawing-a-character-6593364/",
+    },
+    layout: "portrait",
+    intro:
+      "Game development is a separate search from product engineering. We introduce people who have shipped on a live title: engine, tools, netcode, or the pipeline that gets art into the build.",
+    looksLike: [
+      "Unreal, Unity, or a custom engine, named for the project that is actually in production",
+      "Tools and pipelines, not only gameplay code",
+      "Performance, platforms, and a release that has to pass certification",
+    ],
+    companiesAsk:
+      "Studios and product teams ask when the next hire has to live inside an engine. The brief should name the engine, the platform, and whether the seat is gameplay, tools, or online.",
+  },
+  {
+    slug: "blockchain",
+    name: "Blockchain",
+    number: "14",
+    summary: "Protocol and product engineers for systems where a mistake is public.",
+    image: "/images/discipline-blockchain.jpg",
+    alt: "A desk with a monitor and a tablet, both showing candlestick charts.",
+    credit: {
+      photographer: "Jakub Zerdzicki",
+      page: "https://www.pexels.com/photo/dynamic-workspace-for-cryptocurrency-analysis-32299899/",
+    },
+    layout: "square",
+    intro:
+      "Blockchain hiring here is for engineers who have shipped software around a chain: nodes, wallets, indexers, or the product that sits on top. We do not introduce people on the strength of a token.",
+    looksLike: [
+      "Client, contract, or infrastructure work, with the chain named",
+      "Custody, key management, and what happens when a transaction is wrong",
+      "The indexing and monitoring that make a chain usable",
+    ],
+    companiesAsk:
+      "The brief should say whether you are hiring for the protocol, the product, or the security review. Those are three different engineers.",
+  },
+  {
+    slug: "erp",
+    name: "ERP / CRM platforms",
+    number: "15",
+    summary: "The system of record when it is not a Salesforce org.",
+    image: "/images/discipline-erp.jpg",
+    alt: "A woman in a blue work shirt using a desktop computer on a factory floor.",
+    credit: {
+      photographer: "EqualStock IN",
+      page: "https://www.pexels.com/photo/female-factory-worker-using-computer-in-warehouse-31199540/",
+    },
+    layout: "landscape",
+    intro:
+      "ERP and CRM platform engineers design the system that finance, supply, and sales already run on. Salesforce stays its own search. This one is for SAP, Dynamics, NetSuite, and the platforms beside them.",
+    looksLike: [
+      "A named platform, and the modules the company actually uses",
+      "Integrations with the product, the warehouse, and the ledger",
+      "A change process that operations will still recognize after go-live",
+    ],
+    companiesAsk:
+      "They usually need someone who can sit with the people who run the process and with the engineers who have to integrate it, and keep those as one system.",
+  },
 ];
 
 export function getDiscipline(slug: string | undefined) {
@@ -393,7 +554,7 @@ export const notes = [
     },
     paragraphs: [
       "A full stack engineer can learn a CRM. That is not the same as hiring someone who has carried a Salesforce org through a merger. A product engineer can place a pin on a map. That is not the same as hiring someone who has argued about a projection with the people who use the map in the field.",
-      "Credexus keeps those searches separate on purpose. The disciplines page is not a menu of synonyms. Frontend, backend, full stack, and mobile are the general software work. Data, AI, Salesforce, and GIS are specialties with their own standards.",
+      "Credexus keeps those searches separate on purpose. The disciplines page is not a menu of synonyms. Frontend, backend, full stack, and mobile are the general software work. Data, data science, AI, DevOps, cloud, embedded systems, game development, blockchain, Salesforce, GIS, and ERP are specialties with their own standards.",
       "The failure mode is a job post that asks for all of them. It reads as ambition. It hires nobody, or it hires a generalist and then resents them for not being the specialist the post described.",
       "If you need two of these, say so as two roles, or as a dedicated team. We would rather introduce two people who fit than one person who has been asked to be a department.",
     ],
@@ -506,8 +667,8 @@ export const faqs = [
       "A dedicated team is more than one discipline, assembled around a product, with one point of contact here. It is not a pre-built bench waiting on a shelf.",
   },
   {
-    question: "Do you cover Salesforce and GIS as well as product engineering?",
+    question: "Do you cover specialist roles as well as product engineering?",
     answer:
-      "Yes. Frontend, backend, full stack, mobile, data, AI, Salesforce, and GIS are separate searches. We do not fold the specialist roles into a generalist profile.",
+      "Yes. Product engineering, data, data science, AI, DevOps, cloud, embedded systems, game development, blockchain, Salesforce, GIS, and ERP are separate searches. We do not fold the specialist roles into a generalist profile.",
   },
 ] as const;
