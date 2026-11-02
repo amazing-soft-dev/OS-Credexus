@@ -100,11 +100,7 @@ export default function About() {
                   <img
                     src={person.image}
                     alt={person.alt}
-                    className={
-                      person.name === "Priya Raman"
-                        ? "h-full w-full origin-[center_8%] scale-[2.55] object-cover"
-                        : "h-full w-full object-cover object-[center_18%]"
-                    }
+                    className="h-full w-full object-cover object-[center_18%]"
                   />
                 </div>
                 <p className="mt-4 font-display text-xl font-medium tracking-tight">

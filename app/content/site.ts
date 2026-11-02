@@ -11,10 +11,10 @@ export type PhotoCredit = {
 
 export const hero = {
   image: "/images/hero.jpg",
-  alt: "A woman in a grey blazer with a laptop, seated against a bright orange wall.",
+  alt: "A woman in an orange blazer seated in a blue chair against a warm gold studio backdrop.",
   credit: {
-    photographer: "Christina @ wocintechchat.com",
-    page: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2",
+    photographer: "Tochukwu Ekeh",
+    page: "https://www.pexels.com/photo/portrait-of-confident-professional-woman-in-orange-blazer-32303053/",
   },
 } as const satisfies { image: string; alt: string; credit: PhotoCredit };
 
@@ -40,10 +40,10 @@ export const regions = [
     slug: "canada",
     name: "Canada",
     image: "/images/region-canada.jpg",
-    alt: "Vancouver’s downtown towers and marina in daylight, seen from the seawall.",
+    alt: "Daylight view of the Vancouver marina, with boats in front of downtown towers.",
     credit: {
-      photographer: "Masaru Suzuki",
-      page: "https://unsplash.com/photos/hrPcO1Zarzw",
+      photographer: "William Jacobs",
+      page: "https://www.pexels.com/photo/vancouver-waterfront-and-marina-with-cityscape-39056747/",
     },
     summary:
       "Product engineers and specialists who are used to working with US and Canadian companies, often overlapping a full business day.",
@@ -52,10 +52,10 @@ export const regions = [
     slug: "latam",
     name: "Latin America",
     image: "/images/region-latam.jpg",
-    alt: "Medellín in daylight, brick houses climbing a green hillside.",
+    alt: "A daylight street in Medellín, with brick houses climbing the hillside behind it.",
     credit: {
-      photographer: "Jose Figueroa",
-      page: "https://unsplash.com/photos/_zXn5wWkQig",
+      photographer: "Palu Malerba",
+      page: "https://www.pexels.com/photo/houses-on-mountain-at-the-city-of-medellin-in-antioquia-colombia-14202433/",
     },
     summary:
       "Engineers across Mexico, Brazil, Argentina, Colombia, and the wider region, hired for proximity to North American hours.",
@@ -64,10 +64,10 @@ export const regions = [
     slug: "europe",
     name: "Europe",
     image: "/images/region-europe.jpg",
-    alt: "A cobbled street in Lisbon in daylight, lined with pale stone buildings.",
+    alt: "A sunlit stone street in Lisbon, with tram tracks and pale stone buildings.",
     credit: {
-      photographer: "Teodor Kuduschiev",
-      page: "https://unsplash.com/photos/i9IJ3KR-NaA",
+      photographer: "Uğurcan Özmen",
+      page: "https://www.pexels.com/photo/sunlit-urban-street-scene-in-lisbon-portugal-28553922/",
     },
     summary:
       "Senior engineers from across the continent, including people who have already shipped inside regulated industries.",
@@ -76,10 +76,10 @@ export const regions = [
     slug: "asia",
     name: "Asia",
     image: "/images/region-asia.jpg",
-    alt: "Tokyo in daylight, dense towers gathered around Tokyo Tower.",
+    alt: "Daylight aerial view of Tokyo, with Tokyo Tower among dense towers.",
     credit: {
-      photographer: "Jaison Lin",
-      page: "https://unsplash.com/photos/2WHTac8jVA8",
+      photographer: "Robert Schwarz",
+      page: "https://www.pexels.com/photo/tokyo-city-skyline-featuring-iconic-tower-32654991/",
     },
     summary:
       "Engineers who extend a team's day, or who own a region of the product outright, from South, Southeast, and East Asia.",
@@ -122,10 +122,10 @@ export const disciplines: Discipline[] = [
     number: "01",
     summary: "Interfaces that stay clear when the product gets complicated.",
     image: "/images/discipline-frontend.jpg",
-    alt: "A hand drawing interface screens on a tablet, beside a keyboard on a light desk.",
+    alt: "A person drawing on a tablet beside a laptop showing design layouts, on a bright desk.",
     credit: {
-      photographer: "Unsplash",
-      page: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c",
+      photographer: "Antoni Shkraba",
+      page: "https://www.pexels.com/photo/woman-working-with-laptop-in-office-4348394/",
     },
     layout: "portrait",
     intro:
@@ -144,10 +144,10 @@ export const disciplines: Discipline[] = [
     number: "02",
     summary: "Services, data, and the parts of the product nobody sees until they fail.",
     image: "/images/discipline-backend.jpg",
-    alt: "Server racks in a data-center aisle, with status lights and bundled cables.",
+    alt: "A data-center aisle lined with server racks and a rolling terminal.",
     credit: {
-      photographer: "Taylor Vick",
-      page: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31",
+      photographer: "Brett Sayles",
+      page: "https://www.pexels.com/photo/server-racks-on-data-center-4508751/",
     },
     layout: "square",
     intro:
@@ -166,10 +166,10 @@ export const disciplines: Discipline[] = [
     number: "03",
     summary: "Engineers who can take a slice of the product from the schema to the screen.",
     image: "/images/discipline-fullstack.jpg",
-    alt: "A daylight desk with a laptop and a second monitor, both showing code.",
+    alt: "Two monitors showing code, with a keyboard on the desk in front of them.",
     credit: {
-      photographer: "Christopher Gower",
-      page: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      photographer: "Jakub Zerdzicki",
+      page: "https://www.pexels.com/photo/modern-workspace-with-coding-screens-and-keyboard-34212896/",
     },
     layout: "wide",
     intro:
@@ -188,10 +188,10 @@ export const disciplines: Discipline[] = [
     number: "04",
     summary: "iOS, Android, and cross-platform work that still feels native.",
     image: "/images/discipline-mobile.jpg",
-    alt: "A smartphone on a pale table, its screen full of apps.",
+    alt: "Close view of a smartphone screen filled with app icons.",
     credit: {
-      photographer: "CardMapr.nl",
-      page: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+      photographer: "Nothing Ahead",
+      page: "https://www.pexels.com/photo/close-up-shot-of-mobile-apps-8296105/",
     },
     layout: "portrait",
     intro:
@@ -210,10 +210,10 @@ export const disciplines: Discipline[] = [
     number: "05",
     summary: "Models, pipelines, and the people who make a number trustworthy.",
     image: "/images/discipline-data.jpg",
-    alt: "A laptop in a bright room, the screen covered in charts and figures.",
+    alt: "Hands holding a phone with charts, beside printed graphs and a laptop.",
     credit: {
-      photographer: "Carlos Muza",
-      page: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+      photographer: "Tima Miroshnichenko",
+      page: "https://www.pexels.com/photo/hands-holding-a-smartphone-with-data-on-screen-7567443/",
     },
     layout: "landscape",
     intro:
@@ -232,10 +232,10 @@ export const disciplines: Discipline[] = [
     number: "06",
     summary: "Applied machine learning that has to live in a product, not a demo.",
     image: "/images/discipline-ai.jpg",
-    alt: "Engineers working on laptops around a shared table, code open on the screens.",
+    alt: "A software engineer working at a computer with code on the screens.",
     credit: {
-      photographer: "fauxels",
-      page: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+      photographer: "ThisIsEngineering",
+      page: "https://www.pexels.com/photo/female-software-engineer-coding-on-computer-3861972/",
     },
     layout: "square",
     intro:
@@ -254,10 +254,10 @@ export const disciplines: Discipline[] = [
     number: "07",
     summary: "CRM work for companies whose process is the product.",
     image: "/images/discipline-salesforce.jpg",
-    alt: "Two people in a bright office, a laptop and papers between them.",
+    alt: "A woman at a laptop in an office, with a chart on the board behind her.",
     credit: {
-      photographer: "Unsplash",
-      page: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf",
+      photographer: "ANTONI SHKRABA",
+      page: "https://www.pexels.com/photo/portrait-of-woman-working-in-office-8278980/",
     },
     layout: "landscape",
     intro:
@@ -276,10 +276,10 @@ export const disciplines: Discipline[] = [
     number: "08",
     summary: "Spatial products for teams that work on land, infrastructure, and maps.",
     image: "/images/discipline-gis.jpg",
-    alt: "A paper world map on a wall, marked with hundreds of pins.",
+    alt: "A person pointing at a paper chart, with a compass, ruler, and magnifying glass on the table.",
     credit: {
-      photographer: "Andrew Neel",
-      page: "https://images.unsplash.com/photo-1524661135-423995f22d0b",
+      photographer: "cottonbro studio",
+      page: "https://www.pexels.com/photo/person-pointing-on-a-map-5302805/",
     },
     layout: "wide",
     intro:
@@ -352,10 +352,10 @@ export const notes = [
     title: "Hiring across regions is a brief, not a timezone trick",
     dek: "Canada, Latin America, Europe, and Asia are not four flavors of the same engineer.",
     image: "/images/note-regions.jpg",
-    alt: "A laptop on a wooden table showing a video call with many people.",
+    alt: "A person on a laptop video call, with another person visible on the screen.",
     credit: {
-      photographer: "Chris Montgomery",
-      page: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b",
+      photographer: "Anna Shvets",
+      page: "https://www.pexels.com/photo/people-on-a-video-call-4226261/",
     },
     paragraphs: [
       "A company usually starts with a timezone. They want overlap with a city they already work in, and they treat the rest of the world as a way to buy that overlap more cheaply. The introduction fails when that is the whole brief.",
@@ -369,10 +369,10 @@ export const notes = [
     title: "The role brief is the product",
     dek: "Most bad introductions start with a title and a pile of tools.",
     image: "/images/note-brief.jpg",
-    alt: "An open notebook and a pen on a light wooden desk.",
+    alt: "An open dotted notebook and a white pen on a sunlit wooden desk.",
     credit: {
-      photographer: "Thought Catalog",
-      page: "https://images.unsplash.com/photo-1517842645767-c639042777db",
+      photographer: "Jakub Zerdzicki",
+      page: "https://www.pexels.com/photo/sunlit-workspace-with-notebook-and-smartphone-34109400/",
     },
     paragraphs: [
       "Send us a title and a list of frameworks and we can still introduce someone. They will be a plausible engineer. They may not be the one who can do the job you have.",
@@ -386,10 +386,10 @@ export const notes = [
     title: "Specialists are not generalists with a new label",
     dek: "Salesforce and GIS make the point. So do AI and data, once the demo is over.",
     image: "/images/note-specialists.jpg",
-    alt: "A paper world map on a wall, marked with hundreds of pins.",
+    alt: "A compass and a pencil on a notebook, laid over a pinned paper map.",
     credit: {
-      photographer: "Andrew Neel",
-      page: "https://images.unsplash.com/photo-1524661135-423995f22d0b",
+      photographer: "Lara Jameson",
+      page: "https://www.pexels.com/photo/mechanical-pencil-a-note-pad-and-a-navigational-compass-lying-on-a-world-map-8828668/",
     },
     paragraphs: [
       "A full stack engineer can learn a CRM. That is not the same as hiring someone who has carried a Salesforce org through a merger. A product engineer can place a pin on a map. That is not the same as hiring someone who has argued about a projection with the people who use the map in the field.",
@@ -411,60 +411,60 @@ export const team = [
     name: "Mira Calder",
     role: "Founder",
     image: "/images/team-mira.jpg",
-    alt: "Portrait of a woman in a striped jacket, in front of a glass office wall.",
+    alt: "Portrait of a woman in a black top against a plain light backdrop.",
     credit: {
-      photographer: "Christina @ wocintechchat.com",
-      page: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+      photographer: "Daniel & Hannah Snipes",
+      page: "https://www.pexels.com/photo/professional-headshot-of-confident-female-in-greenville-30004323/",
     },
   },
   {
     name: "Jonas Hale",
     role: "Head of introductions",
     image: "/images/team-jonas.jpg",
-    alt: "Portrait of a man in a navy suit and glasses, in a bright office.",
+    alt: "Portrait of a man in a black tuxedo holding a phone against a grey backdrop.",
     credit: {
-      photographer: "LinkedIn Sales Solutions",
-      page: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
+      photographer: "Pexels",
+      page: "https://www.pexels.com/photo/a-man-in-black-suit-holding-a-mobile-phone-6146058/",
     },
   },
   {
     name: "Priya Raman",
     role: "Canada",
     image: "/images/team-priya.jpg",
-    alt: "Studio portrait of a woman with long dark hair against a pale backdrop.",
+    alt: "Portrait of a woman in a red sari and glasses, seated against a curtain.",
     credit: {
-      photographer: "vivek",
-      page: "https://unsplash.com/photos/lT8eFqDQVuA",
+      photographer: "Mouli Ghosh",
+      page: "https://www.pexels.com/photo/portrait-of-an-indian-woman-in-eyeglasses-17450829/",
     },
   },
   {
     name: "Mateo Silva",
     role: "Latin America",
     image: "/images/team-mateo.jpg",
-    alt: "Portrait of a man in a grey sweater against a plain blue-grey backdrop.",
+    alt: "Portrait of a man in a navy blazer and light blue shirt against a warm studio backdrop.",
     credit: {
-      photographer: "Unsplash",
-      page: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      photographer: "Pexels LATAM",
+      page: "https://www.pexels.com/photo/professional-portrait-of-man-in-blue-suit-39284039/",
     },
   },
   {
     name: "Elena Varga",
     role: "Europe",
     image: "/images/team-elena.jpg",
-    alt: "Portrait of a woman in a striped shirt, outdoors in warm light.",
+    alt: "Portrait of a woman in a white shirt, standing in a bright office.",
     credit: {
-      photographer: "Unsplash",
-      page: "https://images.unsplash.com/photo-1544005313-94ddf0286df2",
+      photographer: "Gustavo Fring",
+      page: "https://www.pexels.com/photo/portrait-of-a-woman-at-the-office-4872067/",
     },
   },
   {
     name: "Kenji Sato",
     role: "Asia",
     image: "/images/team-kenji.jpg",
-    alt: "Portrait of a man in a white shirt and tie, against a wood wall.",
+    alt: "Portrait of a man in a navy blazer and white shirt, standing by a window.",
     credit: {
-      photographer: "Unsplash",
-      page: "https://images.unsplash.com/photo-1543132220-3ec99c6094dc",
+      photographer: "Moni Rathnak",
+      page: "https://www.pexels.com/photo/a-businessman-in-a-suit-15399144/",
     },
   },
 ] as const;
