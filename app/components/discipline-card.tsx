@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
@@ -9,17 +9,27 @@ const cardSpring = { type: "spring" as const, stiffness: 400, damping: 60, mass:
 const restScale = 1;
 const hoverScale = 1.05;
 
-export function DisciplineCard({ item }: { item: Discipline }) {
+export const DisciplineCard = memo(function DisciplineCard({
+  item,
+  sizes = "100vw",
+}: {
+  item: Discipline;
+  sizes?: string;
+}) {
   const [active, setActive] = useState(false);
+  const onMouseEnter = useCallback(() => setActive(true), []);
+  const onMouseLeave = useCallback(() => setActive(false), []);
+  const onFocus = useCallback(() => setActive(true), []);
+  const onBlur = useCallback(() => setActive(false), []);
 
   return (
     <Link
       to={`/disciplines/${item.slug}`}
       className="relative isolate block h-[300px] min-h-0 overflow-hidden rounded-[4px] text-white no-underline md:h-full"
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
-      onFocus={() => setActive(true)}
-      onBlur={() => setActive(false)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onFocus={onFocus}
+      onBlur={onBlur}
     >
       <motion.div
         className="discipline-card-photo absolute inset-0 origin-center"
@@ -30,6 +40,7 @@ export function DisciplineCard({ item }: { item: Discipline }) {
         <Photo
           src={item.image}
           alt={item.alt}
+          sizes={sizes}
           frameClassName="h-full w-full"
           className="h-full w-full object-cover"
         />
@@ -70,4 +81,4 @@ export function DisciplineCard({ item }: { item: Discipline }) {
       </motion.span>
     </Link>
   );
-}
+});

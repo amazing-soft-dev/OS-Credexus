@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
 
 export function CountUp({
@@ -11,14 +11,15 @@ export function CountUp({
   label: string;
 }) {
   const ref = useRef<HTMLParagraphElement>(null);
+  const numberRef = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.7 });
-  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
-    if (!inView) return;
+    const node = numberRef.current;
+    if (!node || !inView) return;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (media.matches) {
-      setDisplay(value);
+      node.textContent = `${value}${suffix}`;
       return;
     }
 
@@ -27,13 +28,13 @@ export function CountUp({
     const tick = (now: number) => {
       const progress = Math.min(1, (now - start) / 900);
       const eased = 1 - (1 - progress) ** 3;
-      setDisplay(Math.round(value * eased));
+      node.textContent = `${Math.round(value * eased)}${suffix}`;
       if (progress < 1) frame = requestAnimationFrame(tick);
     };
-    setDisplay(0);
+    node.textContent = `0${suffix}`;
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [inView, value]);
+  }, [inView, suffix, value]);
 
   return (
     <div>
@@ -41,8 +42,10 @@ export function CountUp({
         ref={ref}
         className="font-display text-6xl tracking-tight text-foreground md:text-7xl"
       >
-        {display}
-        {suffix}
+        <span ref={numberRef}>
+          {value}
+          {suffix}
+        </span>
       </p>
       <p className="mt-3 max-w-xs text-muted">{label}</p>
     </div>

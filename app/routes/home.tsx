@@ -1,16 +1,28 @@
+import { lazy, Suspense } from "react";
 import { Link } from "react-router";
 import type { Route } from "./+types/home";
 import { company, disciplines, engagements, hero, notes, regions, steps } from "~/content/site";
-import { ContactForm } from "~/components/contact-form";
 import { Eyebrow } from "~/components/eyebrow";
+import { BarSkeleton } from "~/components/media-skeleton";
 import { Logo } from "~/components/logo";
 import { Photo } from "~/components/photo";
-import { FaqList } from "~/components/faq-list";
 import { CraftStack } from "~/components/motion/craft-stack";
 import { Reveal } from "~/components/motion/reveal";
 import { CountUp } from "~/components/visual/count-up";
 import { Button } from "~/components/ui/button";
 import { pageMeta } from "~/lib/seo";
+
+const ContactForm = lazy(() =>
+  import("~/components/contact-form").then((module) => ({
+    default: module.ContactForm,
+  })),
+);
+
+const FaqList = lazy(() =>
+  import("~/components/faq-list").then((module) => ({
+    default: module.FaqList,
+  })),
+);
 
 export function meta({}: Route.MetaArgs) {
   return pageMeta({
@@ -29,6 +41,7 @@ export default function Home() {
           priority
           src={hero.image}
           alt={hero.alt}
+          sizes="100vw"
           frameClassName="absolute inset-0 h-full w-full"
           className="h-full w-full object-cover object-[68%_center]"
         />
@@ -101,6 +114,7 @@ export default function Home() {
                 <Photo
                   src={region.image}
                   alt={region.alt}
+                  sizes="(min-width: 768px) 50vw, 100vw"
                   className="aspect-[4/3] w-full object-cover"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent p-6 text-white">
@@ -147,7 +161,10 @@ export default function Home() {
           </h2>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {engagements.map((item) => (
-              <article key={item.title} className="border border-line bg-card p-6">
+              <article
+                key={item.title}
+                className="border border-line bg-card p-6 [content-visibility:auto] [contain-intrinsic-size:auto_18rem]"
+              >
                 <h3 className="font-display text-2xl font-medium tracking-tight uppercase">
                   {item.title}
                 </h3>
@@ -187,11 +204,17 @@ export default function Home() {
           </div>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {notes.map((note) => (
-              <Link key={note.slug} to={`/notes/${note.slug}`} className="group block">
-                <article className="h-full overflow-hidden border border-line bg-card">
+              <Link
+                key={note.slug}
+                to={`/notes/${note.slug}`}
+                className="group block [content-visibility:auto] [contain-intrinsic-size:auto_22rem]"
+              >
+                <article className="relative h-full overflow-hidden border border-line bg-card">
                   <Photo
+                    skeleton="card"
                     src={note.image}
                     alt={note.alt}
+                    sizes="(min-width: 768px) 33vw, 100vw"
                     className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   />
                   <div className="p-5">
@@ -220,11 +243,21 @@ export default function Home() {
           .
         </p>
         <div className="mt-10 max-w-3xl">
-          <ContactForm />
+          <Suspense fallback={<BarSkeleton />}>
+            <ContactForm />
+          </Suspense>
         </div>
       </section>
 
-      <FaqList />
+      <Suspense
+        fallback={
+          <div className="mx-auto max-w-7xl px-6 py-24 md:px-8">
+            <BarSkeleton />
+          </div>
+        }
+      >
+        <FaqList />
+      </Suspense>
     </>
   );
 }

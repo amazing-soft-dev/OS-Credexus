@@ -1,9 +1,10 @@
+import { memo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 const DURATION = 0.4;
 const STAGGER = 0.35;
 
-export function RollingText({
+export const RollingText = memo(function RollingText({
   text,
   active,
 }: {
@@ -41,4 +42,4 @@ export function RollingText({
       ))}
     </span>
   );
-}
+});

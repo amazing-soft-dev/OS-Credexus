@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router";
 import {
   motion,
@@ -9,25 +9,13 @@ import {
 } from "framer-motion";
 import { Photo } from "~/components/photo";
 import { ScrollMask } from "~/components/motion/scroll-mask";
+import { useMediaQuery } from "~/hooks/use-media-query";
 import { disciplines, type Discipline } from "~/content/site";
 
 const cardHeight = "md:h-[min(42rem,calc(100svh-8rem))]";
 const stackSlots = 4;
 const splitSpring = { type: "spring" as const, stiffness: 400, damping: 60, mass: 1 };
-
-function useIsDesktop() {
-  const [desktop, setDesktop] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(min-width: 48rem)");
-    const update = () => setDesktop(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-
-  return desktop;
-}
+const desktopQuery = "(min-width: 48rem)";
 
 function useBrokenCards(desktop: boolean, reduced: boolean | null) {
   const nodes = useRef<(HTMLDivElement | null)[]>(disciplines.map(() => null));
@@ -79,10 +67,20 @@ function useBrokenCards(desktop: boolean, reduced: boolean | null) {
     };
   }, [cover, desktop, reduced]);
 
-  return { nodes, broken, cover };
+  const setCardRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) {
+      nodes.current[Number(node.dataset.index)] = node;
+      return;
+    }
+    nodes.current.forEach((current, index) => {
+      if (current && !current.isConnected) nodes.current[index] = null;
+    });
+  }, []);
+
+  return { broken, cover, setCardRef };
 }
 
-function CraftCard({
+const CraftCard = memo(function CraftCard({
   item,
   index,
   broken,
@@ -105,6 +103,7 @@ function CraftCard({
   return (
     <div
       ref={cardRef}
+      data-index={index}
       className={`craft-stack-card ${cardHeight}`}
       style={{
         top: `calc(5rem + ${Math.min(index, stackSlots - 1)} * 1.25rem)`,
@@ -144,6 +143,7 @@ function CraftCard({
           <Photo
             src={item.image}
             alt={item.alt}
+            sizes="(min-width: 768px) 50vw, 100vw"
             frameClassName="md:h-full"
             className="aspect-[4/3] w-full object-cover md:aspect-auto md:h-full"
           />
@@ -156,12 +156,12 @@ function CraftCard({
       </Link>
     </div>
   );
-}
+});
 
 export function CraftStack() {
   const reduced = useReducedMotion();
-  const desktop = useIsDesktop();
-  const { nodes, broken, cover } = useBrokenCards(desktop, reduced);
+  const desktop = useMediaQuery(desktopQuery);
+  const { broken, cover, setCardRef } = useBrokenCards(desktop, reduced);
 
   return (
     <div className="mt-14 flex flex-col gap-10">
@@ -174,9 +174,7 @@ export function CraftStack() {
           cover={cover[index]}
           desktop={desktop}
           reduced={reduced}
-          cardRef={(node) => {
-            nodes.current[index] = node;
-          }}
+          cardRef={setCardRef}
         />
       ))}
     </div>

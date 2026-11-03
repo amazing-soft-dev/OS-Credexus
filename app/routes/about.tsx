@@ -68,6 +68,7 @@ export default function About() {
                 <Photo
                   src={region.image}
                   alt={region.alt}
+                  sizes="(min-width: 768px) 280px, 100vw"
                   className="aspect-[4/3] w-full object-cover"
                 />
                 <div>
@@ -101,6 +102,7 @@ export default function About() {
                   <Photo
                     src={person.image}
                     alt={person.alt}
+                    sizes="(min-width: 768px) 30vw, 50vw"
                     frameClassName="h-full w-full"
                     className="h-full w-full object-cover object-[center_18%]"
                   />
