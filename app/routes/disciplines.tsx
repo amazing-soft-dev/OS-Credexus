@@ -13,10 +13,14 @@ export function meta({}: Route.MetaArgs) {
   });
 }
 
+const plateSizes = "(min-width: 768px) min(80rem, 100vw), 100vw";
+const stackSizes = "(min-width: 768px) 40vw, 100vw";
+const trioSizes = "(min-width: 768px) 30vw, 100vw";
+
 function Plate({ item }: { item: Discipline }) {
   return (
     <div className="md:h-[420px] lg:h-[520px]">
-      <DisciplineCard item={item} />
+      <DisciplineCard item={item} sizes={plateSizes} />
     </div>
   );
 }
@@ -27,7 +31,7 @@ function Stack({ items }: { items: Discipline[] }) {
   return (
     <div className={`grid h-full min-h-0 gap-4 ${rows}`}>
       {items.map((item) => (
-        <DisciplineCard key={item.slug} item={item} />
+        <DisciplineCard key={item.slug} item={item} sizes={stackSizes} />
       ))}
     </div>
   );
@@ -52,7 +56,7 @@ function Trio({ items }: { items: Discipline[] }) {
   return (
     <div className="grid gap-4 md:h-[420px] md:grid-cols-3 lg:h-[520px]">
       {items.map((item) => (
-        <DisciplineCard key={item.slug} item={item} />
+        <DisciplineCard key={item.slug} item={item} sizes={trioSizes} />
       ))}
     </div>
   );

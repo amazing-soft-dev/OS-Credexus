@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { company, nav, regions } from "~/content/site";
 import { Logo } from "~/components/logo";
@@ -9,13 +9,11 @@ const linkType =
 
 function useRoll() {
   const [active, setActive] = useState(false);
-  return {
-    active,
-    onMouseEnter: () => setActive(true),
-    onMouseLeave: () => setActive(false),
-    onFocus: () => setActive(true),
-    onBlur: () => setActive(false),
-  };
+  const onMouseEnter = useCallback(() => setActive(true), []);
+  const onMouseLeave = useCallback(() => setActive(false), []);
+  const onFocus = useCallback(() => setActive(true), []);
+  const onBlur = useCallback(() => setActive(false), []);
+  return { active, onMouseEnter, onMouseLeave, onFocus, onBlur };
 }
 
 function RollLink({ to, children }: { to: string; children: string }) {

@@ -34,8 +34,10 @@ export default function NotePage({ loaderData }: Route.ComponentProps) {
   return (
     <article>
       <Photo
+        priority
         src={note.image}
         alt={note.alt}
+        sizes="100vw"
         className="aspect-[16/7] w-full object-cover"
       />
       <div className="mx-auto max-w-3xl px-6 py-16">

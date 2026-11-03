@@ -36,8 +36,10 @@ export default function Discipline({ loaderData }: Route.ComponentProps) {
   return (
     <article>
       <Photo
+        priority
         src={discipline.image}
         alt={discipline.alt}
+        sizes="100vw"
         className="aspect-[16/8] w-full object-cover"
       />
       <div className="mx-auto max-w-7xl px-6 py-16 md:px-8">

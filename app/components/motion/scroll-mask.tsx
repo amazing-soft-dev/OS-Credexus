@@ -5,9 +5,9 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
-export function ScrollMask({
+function ScrollMaskLive({
   children,
   className,
 }: {
@@ -45,5 +45,39 @@ export function ScrollMask({
     >
       {children}
     </motion.div>
+  );
+}
+
+export function ScrollMask({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [near, setNear] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) setNear(true);
+      },
+      { rootMargin: "25% 0px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  if (near) {
+    return <ScrollMaskLive className={className}>{children}</ScrollMaskLive>;
+  }
+
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
   );
 }
