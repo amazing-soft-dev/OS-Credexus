@@ -6,8 +6,8 @@ import type { Discipline } from "~/content/site";
 import { Photo } from "~/components/photo";
 
 const cardSpring = { type: "spring" as const, stiffness: 400, damping: 60, mass: 1 };
-const restScale = 1.3;
-const hoverScale = restScale * 1.05;
+const restScale = 1;
+const hoverScale = 1.05;
 
 export function DisciplineCard({ item }: { item: Discipline }) {
   const [active, setActive] = useState(false);
@@ -15,7 +15,7 @@ export function DisciplineCard({ item }: { item: Discipline }) {
   return (
     <Link
       to={`/disciplines/${item.slug}`}
-      className="relative isolate block h-[300px] overflow-hidden rounded-[4px] text-white no-underline md:h-[450px] lg:h-[600px]"
+      className="relative isolate block h-[300px] min-h-0 overflow-hidden rounded-[4px] text-white no-underline md:h-full"
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
       onFocus={() => setActive(true)}
@@ -31,7 +31,7 @@ export function DisciplineCard({ item }: { item: Discipline }) {
           src={item.image}
           alt={item.alt}
           frameClassName="h-full w-full"
-          className="h-full w-full object-cover blur-3xl"
+          className="h-full w-full object-cover"
         />
       </motion.div>
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-black/20" />
