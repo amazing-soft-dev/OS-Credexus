@@ -98,7 +98,7 @@ export function SiteFooter() {
       <div className="relative z-10 px-6 pt-12 min-[1100px]:px-[60px] min-[1100px]:pt-[60px]">
         <div className="grid gap-12 min-[1100px]:grid-cols-[minmax(0,1.2fr)_auto_auto] min-[1100px]:items-start min-[1100px]:gap-x-16">
           <div>
-            <Logo size="md" />
+            <Logo size="fluid" tone="light" />
             <p className="mt-6 max-w-[500px] text-2xl leading-[1.4] font-semibold">
               {company.lede}
             </p>
