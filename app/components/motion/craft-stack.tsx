@@ -1,49 +1,154 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
+import { motion, useReducedMotion } from "framer-motion";
 import { Photo } from "~/components/photo";
-import { disciplines } from "~/content/site";
+import { ScrollMask } from "~/components/motion/scroll-mask";
+import { disciplines, type Discipline } from "~/content/site";
 
 const cardHeight = "md:h-[min(42rem,calc(100svh-8rem))]";
+const splitSpring = { type: "spring" as const, stiffness: 400, damping: 60, mass: 1 };
 
-export function CraftStack() {
+function useIsDesktop() {
+  const [desktop, setDesktop] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 48rem)");
+    const update = () => setDesktop(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return desktop;
+}
+
+function useBrokenCards(desktop: boolean, reduced: boolean | null) {
+  const nodes = useRef<(HTMLDivElement | null)[]>(disciplines.map(() => null));
+  const [broken, setBroken] = useState<boolean[]>(() => disciplines.map(() => false));
+
+  useEffect(() => {
+    if (!desktop || reduced === true) {
+      setBroken(disciplines.map(() => false));
+      return;
+    }
+
+    let frame = 0;
+    const update = () => {
+      const next = disciplines.map((_, index) => {
+        const node = nodes.current[index + 1];
+        if (!node) return false;
+        const { top, bottom } = node.getBoundingClientRect();
+        return top < window.innerHeight && bottom > 0;
+      });
+      setBroken((current) =>
+        current.length === next.length && current.every((value, index) => value === next[index])
+          ? current
+          : next,
+      );
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [desktop, reduced]);
+
+  return { nodes, broken };
+}
+
+function CraftCard({
+  item,
+  index,
+  broken,
+  desktop,
+  reduced,
+  cardRef,
+}: {
+  item: Discipline;
+  index: number;
+  broken: boolean;
+  desktop: boolean;
+  reduced: boolean | null;
+  cardRef: (node: HTMLDivElement | null) => void;
+}) {
+  const open = desktop && reduced !== true && broken;
+
   return (
-    <div className="mt-14 flex flex-col gap-10">
-      {disciplines.map((item, index) => (
-        <Link
-          key={item.slug}
-          to={`/disciplines/${item.slug}`}
-          style={{
-            top: `calc(5rem + ${index} * 1.25rem)`,
-            zIndex: index + 1,
-          }}
-          className={`craft-stack-card grid gap-6 overflow-hidden md:grid-cols-2 md:gap-10 ${cardHeight}`}
-        >
-          <div className="flex flex-col justify-between gap-10 bg-[#0d0d0d] p-6 md:p-10">
-            <div>
+    <div
+      ref={cardRef}
+      className={`craft-stack-card ${cardHeight}`}
+      style={{ top: `calc(5rem + ${index} * 1.25rem)`, zIndex: index + 1 }}
+    >
+      <Link
+        to={`/disciplines/${item.slug}`}
+        className="craft-stack-row flex h-full flex-col gap-6 overflow-hidden md:flex-row md:gap-0"
+      >
+        <div className="flex min-w-0 flex-1 flex-col justify-between gap-10 border border-white/10 bg-[#0d0d0d] p-6 md:p-10">
+          <div>
+            <ScrollMask>
               <h3 className="font-display text-4xl leading-[0.95] font-medium tracking-tight uppercase md:text-5xl">
                 {item.name}
               </h3>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed text-background/60">
-                {item.summary}
-              </p>
-            </div>
-            <div className="flex items-start gap-6">
-              <p className="font-display text-sm text-background/60">({item.number})</p>
-              <ul className="grid gap-2 text-sm leading-relaxed text-background/60">
-                {item.looksLike.map((line) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ul>
-            </div>
+            </ScrollMask>
+            <ScrollMask className="mt-4 max-w-sm">
+              <p className="text-sm leading-relaxed text-background/60">{item.summary}</p>
+            </ScrollMask>
           </div>
-          <div className="bg-[#0d0d0d] p-6 md:min-h-0 md:p-10">
-            <Photo
-              src={item.image}
-              alt={item.alt}
-              frameClassName="md:h-full"
-              className="aspect-[4/3] w-full object-cover md:aspect-auto md:h-full"
-            />
+          <div className="flex items-start gap-6">
+            <p className="font-display text-sm text-background/60">({item.number})</p>
+            <ul className="grid gap-2 text-sm leading-relaxed text-background/60">
+              {item.looksLike.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
           </div>
-        </Link>
+        </div>
+        <motion.div
+          className="min-w-0 flex-1 border border-white/10 bg-[#0d0d0d] p-6 md:border-l-0 md:p-10"
+          initial={false}
+          animate={{ marginLeft: open ? 40 : 0 }}
+          transition={splitSpring}
+        >
+          <Photo
+            src={item.image}
+            alt={item.alt}
+            frameClassName="md:h-full"
+            className="aspect-[4/3] w-full object-cover md:aspect-auto md:h-full"
+          />
+        </motion.div>
+      </Link>
+    </div>
+  );
+}
+
+export function CraftStack() {
+  const reduced = useReducedMotion();
+  const desktop = useIsDesktop();
+  const { nodes, broken } = useBrokenCards(desktop, reduced);
+
+  return (
+    <div className="mt-14 flex flex-col gap-10">
+      {disciplines.map((item, index) => (
+        <CraftCard
+          key={item.slug}
+          item={item}
+          index={index}
+          broken={broken[index] ?? false}
+          desktop={desktop}
+          reduced={reduced}
+          cardRef={(node) => {
+            nodes.current[index] = node;
+          }}
+        />
       ))}
     </div>
   );
