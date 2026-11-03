@@ -1,24 +1,8 @@
-import { Link } from "react-router";
 import type { Route } from "./+types/disciplines";
 import { disciplines } from "~/content/site";
+import { DisciplineCard } from "~/components/discipline-card";
 import { Eyebrow } from "~/components/eyebrow";
-import { Photo } from "~/components/photo";
 import { pageMeta } from "~/lib/seo";
-import { cn } from "~/lib/utils";
-
-const layoutClass = {
-  portrait: "",
-  square: "",
-  wide: "md:col-span-2",
-  landscape: "",
-} as const;
-
-const imageClass = {
-  portrait: "aspect-[3/4]",
-  square: "aspect-square",
-  wide: "aspect-video",
-  landscape: "aspect-[4/3]",
-} as const;
 
 export function meta({}: Route.MetaArgs) {
   return pageMeta({
@@ -42,29 +26,7 @@ export default function Disciplines() {
       </p>
       <div className="mt-12 grid gap-4 md:grid-cols-2">
         {disciplines.map((item) => (
-          <Link
-            key={item.slug}
-            to={`/disciplines/${item.slug}`}
-            className={cn("group block", layoutClass[item.layout])}
-          >
-            <article className="h-full overflow-hidden border border-line bg-card">
-              <Photo
-                src={item.image}
-                alt={item.alt}
-                className={cn(
-                  "w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100",
-                  imageClass[item.layout],
-                )}
-              />
-              <div className="p-5">
-                <p className="font-display text-[10px] tracking-[0.22em] text-muted">
-                  {item.number}
-                </p>
-                <h2 className="mt-2 font-display text-3xl font-medium tracking-tight">{item.name}</h2>
-                <p className="mt-2 text-sm text-muted">{item.summary}</p>
-              </div>
-            </article>
-          </Link>
+          <DisciplineCard key={item.slug} item={item} />
         ))}
       </div>
     </section>
