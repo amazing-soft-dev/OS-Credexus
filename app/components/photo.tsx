@@ -1,4 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { memo } from "react";
+import { FrameSkeleton, MediaSkeleton } from "~/components/media-skeleton";
+import { useImageLoaded } from "~/hooks/use-image-loaded";
+import { imageVariants } from "~/lib/image-variants";
 import { cn } from "~/lib/utils";
 
 const imageSize: Record<string, { width: number; height: number }> = {
@@ -33,54 +36,56 @@ const imageSize: Record<string, { width: number; height: number }> = {
   "/images/team-priya.jpg": { width: 4000, height: 6000 },
 };
 
-export function Photo({
+export const Photo = memo(function Photo({
   src,
   alt,
   className,
   frameClassName,
   priority = false,
+  sizes = "100vw",
+  skeleton = "fill",
 }: {
   src: string;
   alt: string;
   className?: string;
   frameClassName?: string;
   priority?: boolean;
+  sizes?: string;
+  skeleton?: "card" | "fill";
 }) {
-  const ref = useRef<HTMLImageElement>(null);
-  const [loaded, setLoaded] = useState(false);
+  const { ref, loaded, onLoad, onError } = useImageLoaded(src);
   const size = imageSize[src] ?? { width: 1600, height: 1067 };
-
-  useEffect(() => {
-    const image = ref.current;
-    if (image?.complete && image.naturalWidth > 0) setLoaded(true);
-  }, [src]);
+  const variant = imageVariants[src];
 
   return (
-    <span className={cn("relative block", frameClassName)}>
-      <span
-        aria-hidden
-        className={cn(
-          "absolute inset-0 bg-[#f2f2f2] motion-safe:animate-pulse",
-          loaded && "hidden",
-        )}
-      />
-      <img
-        ref={ref}
-        src={src}
-        alt={alt}
-        width={size.width}
-        height={size.height}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-        fetchPriority={priority ? "high" : "auto"}
-        onLoad={() => setLoaded(true)}
-        onError={() => setLoaded(true)}
-        className={cn(
-          className,
-          "transition-opacity duration-300 motion-reduce:transition-none",
-          loaded ? "opacity-100" : "opacity-0",
-        )}
-      />
-    </span>
+    <>
+      <span className={cn("block", skeleton === "fill" && "relative", frameClassName)}>
+        {skeleton === "fill" && !loaded ? <FrameSkeleton /> : null}
+        <img
+          ref={ref}
+          src={variant?.src ?? src}
+          srcSet={variant?.srcSet}
+          sizes={sizes}
+          alt={alt}
+          width={size.width}
+          height={size.height}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={priority ? "high" : "auto"}
+          onLoad={onLoad}
+          onError={onError}
+          className={cn(
+            className,
+            "transition-opacity duration-300 motion-reduce:transition-none",
+            loaded ? "opacity-100" : "opacity-0",
+          )}
+        />
+      </span>
+      {skeleton === "card" && !loaded ? (
+        <span aria-hidden className="absolute inset-0 z-10">
+          <MediaSkeleton />
+        </span>
+      ) : null}
+    </>
   );
-}
+});

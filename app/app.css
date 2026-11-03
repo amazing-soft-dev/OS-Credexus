@@ -133,8 +133,4 @@ body {
   [data-reveal] {
     transform: none !important;
   }
-
-  .shine-sweep {
-    display: none;
-  }
 }
