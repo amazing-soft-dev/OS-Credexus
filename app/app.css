@@ -103,6 +103,12 @@ body {
   }
 }
 
+@media (min-width: 48rem) and (prefers-reduced-motion: reduce) {
+  .craft-stack-row {
+    gap: 2.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
